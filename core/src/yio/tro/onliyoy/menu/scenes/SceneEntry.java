@@ -308,6 +308,7 @@ public class SceneEntry extends SceneYio {
 
 
     private void checkToConnect() {
+        if (netRoot.offlineMode) return;
         if (!readyToConnect) return;
         if (yioGdxGame.generalBackgroundManager.isMovingCurrently()) return;
         readyToConnect = false;
