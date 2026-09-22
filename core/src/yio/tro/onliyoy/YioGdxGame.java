@@ -542,6 +542,12 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
 
 
     @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+
+    @Override
     public boolean scrolled(float amountX, float amountY) {
         if (menuControllerYio.onMouseWheelScrolled((int) amountY)) return true;
         gameController.onMouseWheelScrolled((int) amountY);
