@@ -57,6 +57,9 @@ public class LoadingManager {
             case training_create:
                 currentProcess = new ProcessTrainingCreate(this);
                 break;
+            case training_import:
+                currentProcess = new ProcessTrainingImport(this);
+                break;
             case firebase_match:
                 currentProcess = new ProcessFirebaseMatch(this);
                 break;

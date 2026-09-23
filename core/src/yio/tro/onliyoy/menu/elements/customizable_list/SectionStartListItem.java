@@ -1,7 +1,7 @@
 package yio.tro.onliyoy.menu.elements.customizable_list;
 
 import yio.tro.onliyoy.Fonts;
-import yio.tro.onliyoy.game.campaign.Difficulty;
+import yio.tro.onliyoy.game.core_model.ai.Difficulty;
 import yio.tro.onliyoy.menu.LanguagesManager;
 import yio.tro.onliyoy.menu.menu_renders.MenuRenders;
 import yio.tro.onliyoy.menu.menu_renders.render_custom_list.AbstractRenderCustomListItem;

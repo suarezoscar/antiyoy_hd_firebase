@@ -2,7 +2,7 @@ package yio.tro.onliyoy.game.core_model.ai;
 
 import yio.tro.onliyoy.Yio;
 import yio.tro.onliyoy.YioGdxGame;
-import yio.tro.onliyoy.game.campaign.Difficulty;
+import yio.tro.onliyoy.game.core_model.ai.Difficulty;
 import yio.tro.onliyoy.game.core_model.*;
 import yio.tro.onliyoy.game.core_model.core_provinces.Province;
 import yio.tro.onliyoy.game.core_model.events.*;

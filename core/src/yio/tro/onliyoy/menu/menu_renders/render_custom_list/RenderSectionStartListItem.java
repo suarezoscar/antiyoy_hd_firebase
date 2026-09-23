@@ -24,7 +24,7 @@ public class RenderSectionStartListItem extends AbstractRenderCustomListItem{
         slItem = (SectionStartListItem) item;
 
         GraphicsYio.setBatchAlpha(batch, 0.66f * alpha);
-        HColor hColor = CampaignManager.getInstance().convertDifficultyIntoColor(slItem.difficulty);
+        HColor hColor = HColor.gray;
         TextureRegion backgroundTexture = MenuRenders.renderUiColors.map.get(hColor);
         GraphicsYio.drawByRectangle(batch, backgroundTexture, slItem.viewPosition);
         GraphicsYio.setBatchAlpha(batch, 1);

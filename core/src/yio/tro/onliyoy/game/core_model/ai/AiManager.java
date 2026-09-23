@@ -1,6 +1,6 @@
 package yio.tro.onliyoy.game.core_model.ai;
 
-import yio.tro.onliyoy.game.campaign.Difficulty;
+import yio.tro.onliyoy.game.core_model.ai.Difficulty;
 import yio.tro.onliyoy.game.core_model.CoreModel;
 import yio.tro.onliyoy.game.core_model.PlayerEntity;
 import yio.tro.onliyoy.game.core_model.events.AbstractEvent;

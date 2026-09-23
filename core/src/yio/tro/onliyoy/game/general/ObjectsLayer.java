@@ -1,7 +1,7 @@
 package yio.tro.onliyoy.game.general;
 
 import yio.tro.onliyoy.SettingsManager;
-import yio.tro.onliyoy.game.campaign.Difficulty;
+import yio.tro.onliyoy.game.core_model.ai.Difficulty;
 import yio.tro.onliyoy.game.core_model.*;
 import yio.tro.onliyoy.game.core_model.ai.AiManager;
 import yio.tro.onliyoy.game.core_model.events.EventTurnEnd;
