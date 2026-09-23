@@ -52,7 +52,6 @@ public class AutoEndTurnWorker implements IEventListener {
         if (!refEntitiesManager.getCurrentEntity().isHuman()) return;
         if (getViewableModel().diplomacyManager.enabled) return;
         if (!getViewableModel().isNetMatch()) return;
-        FirebaseGameManager firebase = objectsLayer.gameController.yioGdxGame.firebaseGameManager;
         long optionalDeadline = (firebase == null) ? 0 : firebase.getTurnEndTimeMillis();
         if (optionalDeadline > 0 && optionalDeadline - System.currentTimeMillis() < 4000) return;
         if (!Scenes.mechanicsOverlay.isCurrentlyVisible()) return;
