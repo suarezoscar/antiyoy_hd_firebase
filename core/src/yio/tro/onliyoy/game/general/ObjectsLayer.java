@@ -97,6 +97,7 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
         if (deadline == 0) return;
         if (System.currentTimeMillis() < deadline) return;
         forceEndTurnNow("firebase");
+        firebase.extendLocalDeadline();
     }
 
 

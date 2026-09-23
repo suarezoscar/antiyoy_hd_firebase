@@ -105,6 +105,11 @@ public class FirebaseGameManager {
         return turnEndTimeMillis;
     }
 
+    /** Renueva el deadline local inmediatamente (evita doble fin forzado antes del roundtrip SSE). */
+    public void extendLocalDeadline() {
+        turnEndTimeMillis = System.currentTimeMillis() + turnSeconds * 1000L;
+    }
+
     public JsonValue getPlayers() {
         return playersCache;
     }
@@ -331,7 +336,7 @@ public class FirebaseGameManager {
 
             @Override
             public int getListenPriority() {
-                return 9;
+                return 4; // despues del cambio de turno del motor (TurnsManager=8)
             }
         });
     }
@@ -347,6 +352,7 @@ public class FirebaseGameManager {
                 + ",\"turnEndTime\":" + deadline
                 + ",\"version\":" + (lastVersion + 1);
         adapter.writeFields(fields);
+        extendLocalDeadline();
     }
 
     private String serialize() {
