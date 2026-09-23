@@ -34,7 +34,6 @@ public class Scenes {
 
     public static SceneForefinger forefinger;
     public static SceneHighlightArea highlightArea;
-    public static SceneAboutGame aboutGame;
 
 
     public static void createAllScenes() {
@@ -61,6 +60,5 @@ public class Scenes {
 
         forefinger = new SceneForefinger();
         highlightArea = new SceneHighlightArea();
-        aboutGame = new SceneAboutGame();
     }
 }

@@ -158,7 +158,6 @@ public class ViewableModel extends CoreModel {
         GameController gameController = objectsLayer.gameController;
         gameController.resetTouchMode();
         gameController.syncMechanicsOverlayWithCurrentTurn();
-        objectsLayer.checkForAutosave();
         if (Scenes.mechanicsOverlay.isCurrentlyVisible()) {
             Scenes.mechanicsOverlay.onEndTurnEventApplied();
         }

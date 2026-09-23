@@ -34,7 +34,6 @@ public class GameController {
     public ArrayList<TouchMode> dyingTms;
     public SizeManager sizeManager;
     RepeatYio<GameController> repeatFixUi;
-    public ScriptManager scriptManager;
 
 
     public GameController(YioGdxGame yioGdxGame) {
@@ -51,7 +50,6 @@ public class GameController {
         speedManager = new SpeedManager(this);
         dyingTms = new ArrayList<>();
         sizeManager = new SizeManager(GraphicsYio.width);
-        scriptManager = new ScriptManager(this);
 
         TouchMode.createModes(this);
         touchMode = null;
@@ -76,7 +74,6 @@ public class GameController {
         moveTouchMode();
         objectsLayer.move();
         repeatFixUi.move();
-        scriptManager.move();
     }
 
 

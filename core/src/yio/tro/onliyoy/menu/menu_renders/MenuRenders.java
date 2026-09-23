@@ -46,10 +46,6 @@ public class MenuRenders {
     public static RenderRveWinnerItem renderRveWinnerItem = new RenderRveWinnerItem();
     public static RenderIncomeGraphElement renderIncomeGraphElement = new RenderIncomeGraphElement();
     public static RenderRveAddConditionItem renderRveAddConditionItem = new RenderRveAddConditionItem();
-    public static RenderRveChooseConditionTypeItem renderRveChooseConditionTypeItem = new RenderRveChooseConditionTypeItem();
-    public static RenderRveMoneyItem renderRveMoneyItem = new RenderRveMoneyItem();
-    public static RenderRveLandsItem renderRveLandsItem = new RenderRveLandsItem();
-    public static RenderRveRelationItem renderRveRelationItem = new RenderRveRelationItem();
     public static RenderRveNotificationItem renderRveNotificationItem = new RenderRveNotificationItem();
     public static RenderPlaceholderListItem renderPlaceholderListItem = new RenderPlaceholderListItem();
     public static RenderUiColors renderUiColors = new RenderUiColors();
@@ -57,7 +53,6 @@ public class MenuRenders {
     public static RenderSectionStartListItem renderSectionStartListItem = new RenderSectionStartListItem();
     public static RenderCondensedEntitiesViewElement renderCondensedEntitiesViewElement = new RenderCondensedEntitiesViewElement();
     public static RenderDelayedActionElement renderDelayedActionElement = new RenderDelayedActionElement();
-    public static RenderRveSmileysItem renderRveSmileysItem = new RenderRveSmileysItem();
     public static RenderDarkenElement renderDarkenElement = new RenderDarkenElement();
     public static RenderNumberedSeparatorItem renderNumberedSeparatorItem = new RenderNumberedSeparatorItem();
     public static RenderAdvancedConstructionPanelElement renderAdvancedConstructionPanelElement = new RenderAdvancedConstructionPanelElement();

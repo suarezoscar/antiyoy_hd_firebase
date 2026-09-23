@@ -322,7 +322,6 @@ public class SceneSettings extends SceneYio {
             @Override
             protected void apply() {
                 applyAndSave();
-                Scenes.aboutGame.create();
             }
         };
     }

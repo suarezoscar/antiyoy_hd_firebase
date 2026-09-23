@@ -142,7 +142,6 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
         matchResults.rulesType = viewableModel.ruleset.getRulesType();
         matchResults.gameMode = gameController.gameMode;
         gameController.yioGdxGame.applyFullTransitionToUI();
-        gameController.scriptManager.onMatchEnded();
         Scenes.matchResults.create();
         Scenes.matchResults.setMatchResults(matchResults);
         checkToSaveProgress(matchResults);
@@ -182,18 +181,6 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
 
 
     public void checkForAutosave() {
-        if (!SettingsManager.getInstance().autosave) return;
-        if (viewableModel.turnsManager.turnIndex != 0) return;
-        if (!viewableModel.entitiesManager.isSingleplayerHumanMatch()) return;
-        if (!isGameModeGoodForAutosave()) return;
-        ExportParameters parameters = ExportParameters.getInstance();
-        parameters.setCameraCode(gameController.cameraController.encode());
-        parameters.setInitialLevelSize(gameController.sizeManager.initialLevelSize);
-        parameters.setCoreModel(viewableModel);
-        parameters.setHistoryManager(historyManager);
-        parameters.setAiVersionCode(aiManager.getUpdatedAiVersionCode());
-        String levelCode = exportManager.perform(parameters);
-        gameController.savesManager.applyAutosave(levelCode);
     }
 
 

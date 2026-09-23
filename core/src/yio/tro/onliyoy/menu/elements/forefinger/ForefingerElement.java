@@ -456,7 +456,7 @@ public class ForefingerElement extends InterfaceElement<ForefingerElement> {
 
 
     private void notifyScriptManager() {
-        ScriptManager scriptManager = menuControllerYio.yioGdxGame.gameController.scriptManager;
+        ScriptManager scriptManager = menuControllerYio.yioGdxGame.gameController;
         scriptManager.prepareToExecuteNextScriptFaster();
     }
 
