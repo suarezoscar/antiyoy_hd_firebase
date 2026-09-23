@@ -331,10 +331,7 @@ public class ResizableViewElement extends InterfaceElement<ResizableViewElement>
                 );
                 return tagPoint;
             case "relation":
-                RveChooseConditionTypeItem chooseItem = (RveChooseConditionTypeItem) getItem("choose");
-                if (chooseItem == null) return super.getTagPosition(argument);
-                RveIcon icon = chooseItem.getIcon(RveIconType.relation);
-                return icon.position.center;
+                return super.getTagPosition(argument);
             case "send":
                 RveButton sendButton = getButton("send");
                 tagPoint.set(
@@ -364,10 +361,7 @@ public class ResizableViewElement extends InterfaceElement<ResizableViewElement>
                 if (addItem == null) return super.isTagTouched(argument, touchPoint);
                 return addItem.isTouchedBy(touchPoint);
             case "relation":
-                RveChooseConditionTypeItem chooseItem = (RveChooseConditionTypeItem) getItem("choose");
-                if (chooseItem == null) return super.isTagTouched(argument, touchPoint);
-                RveIcon icon = chooseItem.getIcon(RveIconType.relation);
-                return icon.isTouchedBy(touchPoint);
+                return super.isTagTouched(argument, touchPoint);
             case "send":
                 RveButton sendButton = getButton("send");
                 tagPoint.set(

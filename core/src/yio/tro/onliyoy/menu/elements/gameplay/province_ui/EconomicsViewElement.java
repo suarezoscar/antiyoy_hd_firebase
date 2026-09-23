@@ -62,8 +62,6 @@ public class EconomicsViewElement extends InterfaceElement<EconomicsViewElement>
         profitArea.setReaction(new Reaction() {
             @Override
             protected void apply() {
-                Scenes.profitReport.setProvince(getSelectedProvince());
-                Scenes.profitReport.create();
             }
         });
         touchAreas.add(profitArea);

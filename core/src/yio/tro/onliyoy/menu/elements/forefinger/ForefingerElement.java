@@ -1,4 +1,5 @@
 package yio.tro.onliyoy.menu.elements.forefinger;
+import yio.tro.onliyoy.game.tutorial.ScriptManager;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import yio.tro.onliyoy.game.core_model.Hex;
@@ -456,7 +457,7 @@ public class ForefingerElement extends InterfaceElement<ForefingerElement> {
 
 
     private void notifyScriptManager() {
-        ScriptManager scriptManager = menuControllerYio.yioGdxGame.gameController;
+        ScriptManager scriptManager = menuControllerYio.yioGdxGame.gameController.scriptManager;
         scriptManager.prepareToExecuteNextScriptFaster();
     }
 

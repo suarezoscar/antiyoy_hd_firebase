@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import yio.tro.onliyoy.menu.MenuControllerYio;
 import yio.tro.onliyoy.menu.elements.LabelElement;
-import yio.tro.onliyoy.menu.elements.customizable_list.UserLevelListItem;
 import yio.tro.onliyoy.menu.elements.keyboard.CbPage;
 import yio.tro.onliyoy.stuff.FrameBufferYio;
 import yio.tro.onliyoy.stuff.GraphicsYio;
@@ -28,7 +27,6 @@ public class CacheTexturesManager {
     private CrButtonTextRender crButtonTextRender;
     private CrLabelElement crLabelElement;
     private CrKeyboard crKeyboard;
-    private CrUserLevelItem crUserLevelItem;
 
 
     public CacheTexturesManager(MenuControllerYio menuControllerYio) {
@@ -60,13 +58,6 @@ public class CacheTexturesManager {
         crButtonTextRender = new CrButtonTextRender();
         crLabelElement = new CrLabelElement();
         crKeyboard = new CrKeyboard();
-        crUserLevelItem = new CrUserLevelItem();
-    }
-
-
-    public TextureRegion perform(UserLevelListItem userLevelListItem) {
-        setCurrentRenderer(crUserLevelItem, userLevelListItem);
-        return performMainPart();
     }
 
 

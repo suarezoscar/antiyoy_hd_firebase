@@ -195,7 +195,6 @@ public class GameView {
         instance.renderMoveZone.render();
         instance.renderDefenseIndicators.render();
         instance.renderQuickInfo.render();
-        instance.renderEditorStuff.render();
         instance.renderFogOfWar.render();
 
         renderDyingTouchModes();

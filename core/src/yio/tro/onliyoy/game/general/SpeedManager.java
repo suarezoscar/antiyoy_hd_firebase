@@ -67,7 +67,6 @@ public class SpeedManager {
 
 
     private void notifyUiAboutSpeedChange() {
-        Scenes.aiOnlyOverlay.onSpeedChanged();
     }
 
 

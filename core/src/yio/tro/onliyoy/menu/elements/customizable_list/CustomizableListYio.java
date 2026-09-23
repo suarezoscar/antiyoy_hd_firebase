@@ -593,13 +593,7 @@ public class CustomizableListYio extends InterfaceElement<CustomizableListYio> {
     public PointYio getTagPosition(String argument) {
         AbstractCustomListItem item = getItem(argument);
         if (item != null) {
-            if (item instanceof AbstractSingleLineItem) {
-                RectangleYio bounds = ((AbstractSingleLineItem) item).title.bounds;
-                tempPoint.set(
-                        bounds.x + bounds.width / 2,
-                        bounds.y + bounds.height / 2
-                );
-            } else {
+            {
                 tempPoint.set(
                         item.viewPosition.x + item.viewPosition.width / 2,
                         item.viewPosition.y + item.viewPosition.height / 2

@@ -1,4 +1,5 @@
 package yio.tro.onliyoy.menu.scenes.gameplay;
+import yio.tro.onliyoy.game.tutorial.ScriptManager;
 
 import yio.tro.onliyoy.Fonts;
 import yio.tro.onliyoy.YioGdxGame;

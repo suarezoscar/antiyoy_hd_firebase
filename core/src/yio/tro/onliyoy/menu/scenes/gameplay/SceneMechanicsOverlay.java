@@ -114,10 +114,6 @@ public class SceneMechanicsOverlay extends ModalSceneYio {
 
     private void onMailButtonPressed() {
         getViewableModel().provinceSelectionManager.onClickedOutside();
-        if (getGameController().touchMode == TouchMode.tmChooseLands) {
-            getGameController().resetTouchMode();
-        }
-        Scenes.inbox.create();
     }
 
 
@@ -132,23 +128,13 @@ public class SceneMechanicsOverlay extends ModalSceneYio {
 
 
     private void onFlagButtonPressed() {
-        if (getGameController().touchMode == TouchMode.tmDiplomacy) {
-            getGameController().resetTouchMode();
-            return;
-        }
         getObjectsLayer().viewableModel.provinceSelectionManager.onClickedOutside();
-        getGameController().setTouchMode(TouchMode.tmDiplomacy);
-        updateFlagTexture();
     }
 
 
     public void updateFlagTexture() {
         if (flagButton == null) return;
-        if (getGameController().touchMode == TouchMode.tmDiplomacy) {
-            flagButton.setCustomTexture(flagRedTexture);
-        } else {
-            flagButton.setCustomTexture(flagWhiteTexture);
-        }
+        flagButton.setCustomTexture(flagWhiteTexture);
     }
 
 
@@ -162,9 +148,6 @@ public class SceneMechanicsOverlay extends ModalSceneYio {
 
 
     private void resolvePossibleConflicts() {
-        Scenes.mlUserInfo.destroy();
-        Scenes.matchInfoPanel.destroy();
-        Scenes.choosePhrase.destroy();
     }
 
 
@@ -210,9 +193,6 @@ public class SceneMechanicsOverlay extends ModalSceneYio {
         ViewableModel viewableModel = getObjectsLayer().viewableModel;
         boolean success = viewableModel.onUndoRequested();
         if (!success) return;
-        if (viewableModel.isNetMatch()) {
-            netRoot.sendMessage(NmType.undo_last_action, "");
-        }
     }
 
 
@@ -278,7 +258,6 @@ public class SceneMechanicsOverlay extends ModalSceneYio {
                 .setIgnoreResumePause(true)
                 .setAnimation(AnimationYio.left)
                 .setCustomTexture(getTextureFromAtlas("open"))
-                .setReaction(getOpenSceneReaction(Scenes.debugPanel))
                 .setAllowedToAppear(getSuperUserCondition())
                 .setSelectionTexture(selectionTexture);
     }

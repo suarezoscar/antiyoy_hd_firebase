@@ -154,7 +154,6 @@ public class PigeonsManager implements IEventListener {
     private void updateAlphaModifier() {
         alphaModifier = 0.66;
         if (viewableModel.entitiesManager.isInAiOnlyMode()) return;
-        if (viewableModel.objectsLayer.replayManager.active) return;
         alphaModifier = 1;
     }
 }

@@ -1,7 +1,6 @@
 package yio.tro.onliyoy.menu.scenes;
 
 import yio.tro.onliyoy.menu.scenes.gameplay.*;
-import yio.tro.onliyoy.menu.scenes.info.SceneAboutGame;
 import yio.tro.onliyoy.menu.scenes.options.SceneConfirmResetSettings;
 import yio.tro.onliyoy.menu.scenes.options.SceneLanguages;
 import yio.tro.onliyoy.menu.scenes.options.SceneSettings;
@@ -21,6 +20,7 @@ public class Scenes {
     public static SceneIncomeGraph incomeGraph;
     public static SceneMatchResults matchResults;
     public static SceneConfirmEndTurn confirmEndTurn;
+    public static SceneMessageDialog messageDialog;
 
     public static SceneDefaultPauseMenu defaultPauseMenu;
     public static SceneSettings settings;
@@ -47,6 +47,7 @@ public class Scenes {
         incomeGraph = new SceneIncomeGraph();
         matchResults = new SceneMatchResults();
         confirmEndTurn = new SceneConfirmEndTurn();
+        messageDialog = new SceneMessageDialog();
 
         defaultPauseMenu = new SceneDefaultPauseMenu();
         settings = new SceneSettings();

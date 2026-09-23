@@ -1,4 +1,5 @@
 package yio.tro.onliyoy.menu;
+import yio.tro.onliyoy.game.tutorial.ScriptManager;
 
 import yio.tro.onliyoy.*;
 import yio.tro.onliyoy.game.general.GameMode;

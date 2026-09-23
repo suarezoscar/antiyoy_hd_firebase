@@ -1,4 +1,6 @@
 package yio.tro.onliyoy.game.general;
+import yio.tro.onliyoy.game.tutorial.TutorialManager;
+import yio.tro.onliyoy.game.tutorial.ScriptManager;
 
 import com.badlogic.gdx.Gdx;
 import yio.tro.onliyoy.YioGdxGame;
@@ -31,6 +33,8 @@ public class GameController {
     public PointYio currentTouchConverted;
     public TouchMode touchMode;
     public SpeedManager speedManager;
+    public ScriptManager scriptManager;
+    public TutorialManager tutorialManager;
     public ArrayList<TouchMode> dyingTms;
     public SizeManager sizeManager;
     RepeatYio<GameController> repeatFixUi;
@@ -48,6 +52,8 @@ public class GameController {
         gameMode = null;
         currentTouchConverted = new PointYio();
         speedManager = new SpeedManager(this);
+        scriptManager = new ScriptManager(this);
+        tutorialManager = new TutorialManager(this);
         dyingTms = new ArrayList<>();
         sizeManager = new SizeManager(GraphicsYio.width);
 
@@ -296,9 +302,6 @@ public class GameController {
 
 
     public void onPause() {
-        if (objectsLayer != null && objectsLayer.editorManager != null) {
-            objectsLayer.editorManager.onAppPaused();
-        }
     }
 
 

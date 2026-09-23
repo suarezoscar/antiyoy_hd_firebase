@@ -252,8 +252,6 @@ public class GeneralBackgroundManager {
 
 
     private boolean isCurrentlyVisible() {
-        if (Scenes.campaign.isCurrentlyVisible() && Scenes.campaign.customizableListYio.getFactor().getValue() > 0.95) return false;
-        if (Scenes.calendar.isCurrentlyVisible() && Scenes.calendar.calendarViewElement.getFactor().getValue() > 0.95) return false;
         return true;
     }
 

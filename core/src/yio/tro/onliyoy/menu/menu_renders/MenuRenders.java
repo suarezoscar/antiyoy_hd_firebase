@@ -36,7 +36,6 @@ public class MenuRenders {
     public static RenderMultiButtonElement renderMultiButtonElement = new RenderMultiButtonElement();
     public static RenderTopCoverElement renderTopCoverElement = new RenderTopCoverElement();
     public static RenderCustomKeyboardElement renderCustomKeyboardElement = new RenderCustomKeyboardElement();
-    public static RenderEntitiesSetupElement renderEntitiesSetupElement = new RenderEntitiesSetupElement();
     public static RenderEconomicsViewElement renderEconomicsViewElement = new RenderEconomicsViewElement();
     public static RenderConstructionViewElement renderConstructionViewElement = new RenderConstructionViewElement();
     public static RenderResizableViewElement renderResizableViewElement = new RenderResizableViewElement();
@@ -45,13 +44,10 @@ public class MenuRenders {
     public static RenderRveTextItem renderRveTextItem = new RenderRveTextItem();
     public static RenderRveWinnerItem renderRveWinnerItem = new RenderRveWinnerItem();
     public static RenderIncomeGraphElement renderIncomeGraphElement = new RenderIncomeGraphElement();
-    public static RenderRveAddConditionItem renderRveAddConditionItem = new RenderRveAddConditionItem();
-    public static RenderRveNotificationItem renderRveNotificationItem = new RenderRveNotificationItem();
     public static RenderPlaceholderListItem renderPlaceholderListItem = new RenderPlaceholderListItem();
     public static RenderUiColors renderUiColors = new RenderUiColors();
     public static RenderHighlightAreaElement renderHighlightAreaElement = new RenderHighlightAreaElement();
     public static RenderSectionStartListItem renderSectionStartListItem = new RenderSectionStartListItem();
-    public static RenderCondensedEntitiesViewElement renderCondensedEntitiesViewElement = new RenderCondensedEntitiesViewElement();
     public static RenderDelayedActionElement renderDelayedActionElement = new RenderDelayedActionElement();
     public static RenderDarkenElement renderDarkenElement = new RenderDarkenElement();
     public static RenderNumberedSeparatorItem renderNumberedSeparatorItem = new RenderNumberedSeparatorItem();

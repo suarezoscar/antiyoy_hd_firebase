@@ -174,13 +174,5 @@ public class SceneFirebaseHome extends SceneYio {
         };
     }
 
-    private Reaction getBackReaction() {
-        return new Reaction() {
-            @Override
-            protected void apply() {
-                yioGdxGame.setGamePaused(true);
-                Scenes.chooseGameMode.create();
-            }
-        };
-    }
+
 }

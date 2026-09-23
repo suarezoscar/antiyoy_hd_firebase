@@ -55,25 +55,4 @@ public abstract class AbstractRveClickableRender extends AbstractRveRender{
         GraphicsYio.setBatchAlpha(batch, 1);
     }
 
-
-    protected void renderSelection(AbstractRveConditionItem rveConditionItem, double alpha) {
-        SelectionEngineYio selectionEngineYio = rveConditionItem.selectionEngineYio;
-        if (!selectionEngineYio.isSelected()) return;
-        GraphicsYio.setBatchAlpha(batch, alpha * selectionEngineYio.getAlpha());
-        GraphicsYio.drawByRectangle(batch, blackPixel, rveConditionItem.position);
-        GraphicsYio.setBatchAlpha(batch, 1);
-    }
-
-
-    protected void renderTitle(AbstractRveConditionItem rveConditionItem, double alpha) {
-        if (rveConditionItem.invalid) {
-            BitmapFont font = rveConditionItem.title.font;
-            font.setColor(0.56f, 0.2f, 0.2f, 1);
-            GraphicsYio.renderTextOptimized(batch, redPixel, rveConditionItem.title, (float) alpha);
-            font.setColor(Color.BLACK);
-            return;
-        }
-        GraphicsYio.renderTextOptimized(batch, blackPixel, rveConditionItem.title, (float) alpha);
-    }
-
 }

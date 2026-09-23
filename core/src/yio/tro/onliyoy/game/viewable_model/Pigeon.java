@@ -76,7 +76,6 @@ public class Pigeon implements ReusableYio {
     private boolean shouldSlightlySpeedUpPigeons() {
         ViewableModel viewableModel = pigeonsManager.viewableModel;
         if (viewableModel.entitiesManager.isInAiOnlyMode()) return true;
-        if (viewableModel.objectsLayer.replayManager.active) return true;
         return false;
     }
 

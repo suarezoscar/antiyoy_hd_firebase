@@ -523,12 +523,7 @@ public class VmCacheManager implements IEventListener {
             case editor:
                 return CacheUpdateRule.manual;
             case replay:
-                ReplayManager replayManager = getObjectsLayer().replayManager;
-                if (replayManager.fast) {
-                    return CacheUpdateRule.lap;
-                } else {
-                    return CacheUpdateRule.turn;
-                }
+                return CacheUpdateRule.turn;
         }
     }
 

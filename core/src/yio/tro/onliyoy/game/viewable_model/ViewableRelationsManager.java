@@ -201,13 +201,6 @@ public class ViewableRelationsManager implements IEventListener {
 
 
     private void notifyTouchModeAboutChange() {
-        GameController gameController = viewableModel.objectsLayer.gameController;
-        if (gameController.touchMode == TouchMode.tmDiplomacy) {
-            TouchMode.tmDiplomacy.onEventChangedRelations();
-        }
-        if (gameController.touchMode == TouchMode.tmEditRelations) {
-            TouchMode.tmEditRelations.onEventChangedRelations();
-        }
     }
 
 

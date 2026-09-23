@@ -69,7 +69,6 @@ public class SceneSettings extends SceneYio {
             @Override
             protected void apply() {
                 applyAndSave();
-                Scenes.mainLobby.create();
 
                 if (SettingsManager.getInstance().requestRestartApp) {
                     Scenes.notification.show("restart_app");
@@ -146,7 +145,6 @@ public class SceneSettings extends SceneYio {
             @Override
             protected void apply() {
                 applyAndSave();
-                Scenes.chooseLocalSkin.create();
             }
         };
     }
@@ -262,9 +260,6 @@ public class SceneSettings extends SceneYio {
 
 
     private void sendCurrentOptionsToServer() {
-        NetOptionsData netOptionsData = new NetOptionsData();
-        netOptionsData.setBy(SettingsManager.getInstance());
-        netRoot.sendMessage(NmType.options, netOptionsData.encode());
     }
 
 

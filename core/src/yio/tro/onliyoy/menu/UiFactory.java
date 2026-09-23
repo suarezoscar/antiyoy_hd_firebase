@@ -16,9 +16,6 @@ import yio.tro.onliyoy.menu.elements.keyboard.CustomKeyboardElement;
 import yio.tro.onliyoy.menu.elements.keyboard.NativeKeyboardElement;
 import yio.tro.onliyoy.menu.elements.multi_button.MultiButtonElement;
 import yio.tro.onliyoy.menu.elements.resizable_element.ResizableViewElement;
-import yio.tro.onliyoy.menu.elements.setup_entities.CondensedEntitiesViewElement;
-import yio.tro.onliyoy.menu.elements.setup_entities.EntitiesSetupElement;
-import yio.tro.onliyoy.menu.elements.setup_entities.SingleEntityConfigureElement;
 import yio.tro.onliyoy.menu.elements.slider.SliderElement;
 import yio.tro.onliyoy.menu.scenes.SceneYio;
 
@@ -142,16 +139,6 @@ public class UiFactory {
     }
 
 
-    public EntitiesSetupElement getEntitiesSetupElement() {
-        return (EntitiesSetupElement) addElementToScene(new EntitiesSetupElement(menuControllerYio));
-    }
-
-
-    public SingleEntityConfigureElement getSingleEntityConfigureElement() {
-        return (SingleEntityConfigureElement) addElementToScene(new SingleEntityConfigureElement(menuControllerYio));
-    }
-
-
     public EconomicsViewElement getEconomicsViewElement() {
         return (EconomicsViewElement) addElementToScene(new EconomicsViewElement(menuControllerYio));
     }
@@ -174,11 +161,6 @@ public class UiFactory {
 
     public HighlightAreaElement getHighlightAreaElement() {
         return (HighlightAreaElement) addElementToScene(new HighlightAreaElement(menuControllerYio));
-    }
-
-
-    public CondensedEntitiesViewElement getCondensedEntitiesViewElement() {
-        return (CondensedEntitiesViewElement) addElementToScene(new CondensedEntitiesViewElement(menuControllerYio));
     }
 
 

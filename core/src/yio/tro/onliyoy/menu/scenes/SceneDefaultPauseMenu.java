@@ -57,8 +57,6 @@ public class SceneDefaultPauseMenu extends AbstractPauseMenu {
         return new TemporaryMbeItem[]{
                 new TemporaryMbeItem("resume", BackgroundYio.green, getResumeReaction()),
                 new TemporaryMbeItem("restart", BackgroundYio.yellow, getOpenSceneReaction(Scenes.confirmRestart)),
-                new TemporaryMbeItem("save", BackgroundYio.magenta, getOpenSceneReaction(Scenes.saveToSlot)),
-                new TemporaryMbeItem("main_lobby", BackgroundYio.red, getOpenSceneReaction(Scenes.mainLobby)),
         };
     }
 

@@ -5,6 +5,9 @@ package yio.tro.onliyoy.game.tutorial;
  */
 public class TutorialManager {
 
+    public TutorialManager(yio.tro.onliyoy.game.general.GameController gameController) {
+    }
+
     public void move() {
     }
 }

@@ -87,7 +87,6 @@ public class SceneProvinceManagement extends ModalSceneYio {
     protected void onAppear() {
         super.onAppear();
         updateConstructionViewReference();
-        Scenes.phraseButton.destroy();
     }
 
 
@@ -103,7 +102,6 @@ public class SceneProvinceManagement extends ModalSceneYio {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Scenes.phraseButton.create();
     }
 
 

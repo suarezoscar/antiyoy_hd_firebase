@@ -1,4 +1,5 @@
 package yio.tro.onliyoy.game.general;
+import yio.tro.onliyoy.game.tutorial.ScriptManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;

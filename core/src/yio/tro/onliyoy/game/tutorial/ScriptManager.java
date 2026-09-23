@@ -11,6 +11,10 @@ public class ScriptManager {
     private final ArrayList<Object> items = new ArrayList<>();
 
 
+    public ScriptManager(yio.tro.onliyoy.game.general.GameController gameController) {
+    }
+
+
     public boolean hasSomeAliveScripts() {
         return false;
     }
