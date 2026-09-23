@@ -16,6 +16,8 @@ public enum  LoadingType {
 
     net_match,
 
+    firebase_match,
+
     completion_check,
 
     verification,

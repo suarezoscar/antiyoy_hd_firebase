@@ -77,6 +77,9 @@ public class LoadingManager {
             case net_match:
                 currentProcess = new ProcessNetMatch(this);
                 break;
+            case firebase_match:
+                currentProcess = new ProcessFirebaseMatch(this);
+                break;
             case completion_check:
                 currentProcess = new ProcessCompletionCheck(this);
                 break;
