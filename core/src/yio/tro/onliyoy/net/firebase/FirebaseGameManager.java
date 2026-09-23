@@ -44,6 +44,7 @@ public class FirebaseGameManager {
     private JsonValue playersCache;
     private int lastVersion = 0;
     private boolean registeredTurnListener;
+    private long turnEndTimeMillis = 0;
 
     public int turnSeconds = 60;
     public String levelSize = "small";
@@ -98,6 +99,10 @@ public class FirebaseGameManager {
 
     public boolean isHost() {
         return "-".equals(creatorId) || creatorId.equals(getPlayerId());
+    }
+
+    public long getTurnEndTimeMillis() {
+        return turnEndTimeMillis;
     }
 
     public JsonValue getPlayers() {
@@ -211,6 +216,7 @@ public class FirebaseGameManager {
             @Override
             public void onState(String status, String levelCode, String currentColor, long turnEndTime, int version) {
                 lastVersion = version;
+                turnEndTimeMillis = turnEndTime;
                 if (!"playing".equals(status)) return;
                 if (levelCode == null || levelCode.length() < 3) return;
                 syncTo(levelCode);

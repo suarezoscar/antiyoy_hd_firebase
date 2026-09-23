@@ -74,5 +74,13 @@ public class ProcessFirebaseMatch extends AbstractLoadingProcess {
         (new IwReadiness(viewableModel)).perform(levelCode);
         (new IwCoreFogOfWar(viewableModel)).perform(levelCode);
         gameController.cameraController.flyUp(true);
+
+        yio.tro.onliyoy.game.core_model.EntitiesManager em = viewableModel.entitiesManager;
+        System.out.println("[FBG] load ok: mode=" + gameController.gameMode
+                + " current=" + em.getCurrentColor()
+                + " human=" + em.getCurrentEntity().isHuman()
+                + " humanTurn=" + em.isHumanTurnCurrently()
+                + " provinces=" + viewableModel.provincesManager.provinces.size()
+                + " myColor=" + loadingParameters.get("my_color"));
     }
 }

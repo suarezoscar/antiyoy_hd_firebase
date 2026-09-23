@@ -20,6 +20,7 @@ import yio.tro.onliyoy.game.viewable_model.UndoManager;
 import yio.tro.onliyoy.game.viewable_model.ViewableModel;
 import yio.tro.onliyoy.menu.scenes.Scenes;
 import yio.tro.onliyoy.net.NetRoot;
+import yio.tro.onliyoy.net.firebase.FirebaseGameManager;
 import yio.tro.onliyoy.net.shared.NetValues;
 import yio.tro.onliyoy.net.shared.NmType;
 import yio.tro.onliyoy.stuff.*;
@@ -107,17 +108,30 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
 
 
     private void checkToForceEndTurn() {
+        FirebaseGameManager firebase = yioGdxGame.firebaseGameManager;
+        if (firebase != null && firebase.getAdapter() != null) {
+            long deadline = firebase.getTurnEndTimeMillis();
+            if (deadline == 0) return;
+            if (System.currentTimeMillis() < deadline) return;
+            forceEndTurnNow("firebase");
+            return;
+        }
         EntitiesManager entitiesManager = viewableModel.refModel.entitiesManager;
         if (!entitiesManager.getCurrentEntity().isHuman()) return;
         if (!viewableModel.isNetMatch()) return;
         NetRoot netRoot = getNetRoot();
         if (netRoot.currentMatchData.turnEndTime == 0) return;
         if (System.currentTimeMillis() < netRoot.currentMatchData.turnEndTime) return;
+        forceEndTurnNow("net");
+    }
+
+
+    private void forceEndTurnNow(String source) {
         EventsManager eventsManager = viewableModel.eventsManager;
         EventTurnEnd endTurnEvent = eventsManager.factory.createEndTurnEvent();
         HColor previousColor = viewableModel.entitiesManager.getCurrentColor();
         eventsManager.applyEvent(endTurnEvent);
-        System.out.println("Forced turn end on client locally: " + previousColor + " -> " + viewableModel.entitiesManager.getCurrentColor());
+        System.out.println("Forced turn end (" + source + "): " + previousColor + " -> " + viewableModel.entitiesManager.getCurrentColor());
     }
 
 
