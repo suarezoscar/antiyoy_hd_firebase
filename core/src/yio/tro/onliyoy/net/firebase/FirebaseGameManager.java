@@ -43,6 +43,7 @@ public class FirebaseGameManager {
     private String creatorId = "-";
     private JsonValue playersCache;
     private int lastVersion = 0;
+    private int writtenVersion = 0;
     private boolean registeredTurnListener;
     private long turnEndTimeMillis = 0;
 
@@ -224,6 +225,7 @@ public class FirebaseGameManager {
                 turnEndTimeMillis = turnEndTime;
                 if (!"playing".equals(status)) return;
                 if (levelCode == null || levelCode.length() < 3) return;
+                if (writtenVersion > 0 && version <= writtenVersion) return; // eco propio: no reimportar
                 syncTo(levelCode);
             }
 
@@ -274,6 +276,7 @@ public class FirebaseGameManager {
                 + ",\"currentColor\":" + q(firstColor)
                 + ",\"turnEndTime\":" + deadline
                 + ",\"version\":" + (lastVersion + 1);
+        writtenVersion = lastVersion + 1;
         adapter.writeFields(fields);
 
         syncTo(levelCode);
@@ -351,6 +354,7 @@ public class FirebaseGameManager {
                 + ",\"currentColor\":" + q(currentColor)
                 + ",\"turnEndTime\":" + deadline
                 + ",\"version\":" + (lastVersion + 1);
+        writtenVersion = lastVersion + 1;
         adapter.writeFields(fields);
         extendLocalDeadline();
     }
