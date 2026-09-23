@@ -45,13 +45,7 @@ public class MenuControllerYio {
 
     public void createInitialScene() {
         yioGdxGame.applyBackground(BackgroundYio.black);
-        if (YioGdxGame.platformType == PlatformType.ios) {
-            yioGdxGame.netRoot.enableOfflineMode();
-            Scenes.mainLobby.create();
-            yioGdxGame.generalBackgroundManager.spawnParticles();
-        } else {
-            Scenes.entry.create();
-        }
+        Scenes.firebaseHome.create();
     }
 
 

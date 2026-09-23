@@ -35,7 +35,6 @@ public class SceneFirebaseHome extends SceneYio {
         createCreateButton();
         createJoinButton();
         createCopyLinkButton();
-        spawnBackButton(getBackReaction());
     }
 
     private void createInfoLabel() {
