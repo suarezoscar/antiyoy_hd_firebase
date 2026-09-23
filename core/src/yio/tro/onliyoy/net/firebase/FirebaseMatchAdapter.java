@@ -63,7 +63,7 @@ public class FirebaseMatchAdapter {
 
     /** PATCH general sobre el nodo de partida (levelCode, currentColor, turnEndTime, version, status...). */
     public void writeFields(String jsonFields) {
-        client.patch("matches/" + matchId, jsonFields, new SimpleWrite("write"));
+        client.patch("matches/" + matchId, "{" + jsonFields + "}", new SimpleWrite("write"));
     }
 
     // -------------------------------------------------------------- tiempo real

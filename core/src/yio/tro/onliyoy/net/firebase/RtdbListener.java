@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -39,7 +40,10 @@ public class RtdbListener {
 
     public RtdbListener(String baseUrl) {
         this.baseUrl = baseUrl;
-        this.http = new OkHttpClient();
+        this.http = new OkHttpClient.Builder()
+                .readTimeout(0, TimeUnit.MILLISECONDS)   // stream vivo: sin timeout de lectura
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .build();
     }
 
     public synchronized void listen(String path, DataListener listener) {

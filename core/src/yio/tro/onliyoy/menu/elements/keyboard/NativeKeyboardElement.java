@@ -228,6 +228,12 @@ public class NativeKeyboardElement extends InterfaceElement<NativeKeyboardElemen
     }
 
 
+    public String getText() {
+        if (textField != null) return textField.getText();
+        return tfPreparedValue;
+    }
+
+
     @Override
     public RenderInterfaceElement getRenderSystem() {
         return MenuRenders.renderNativeKeyboard;

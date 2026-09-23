@@ -110,10 +110,9 @@ public class SceneFirebaseHome extends SceneYio {
             @Override
             protected void apply() {
                 final FirebaseGameManager manager = getManager();
-                Scenes.keyboard.create();
-                Scenes.keyboard.setHint("URL de la base RTDB");
-                Scenes.keyboard.setValue("-".equals(manager.getConfig().getDatabaseUrl()) ? "" : manager.getConfig().getDatabaseUrl());
-                Scenes.keyboard.setReaction(new AbstractKbReaction() {
+                Scenes.firebaseInput.create();
+                Scenes.firebaseInput.setValue("-".equals(manager.getConfig().getDatabaseUrl()) ? "" : manager.getConfig().getDatabaseUrl());
+                Scenes.firebaseInput.setReaction(new AbstractKbReaction() {
                     @Override
                     public void onInputFromKeyboardReceived(String input) {
                         manager.getConfig().setConfig(input.trim(), "-");
@@ -145,10 +144,9 @@ public class SceneFirebaseHome extends SceneYio {
             @Override
             protected void apply() {
                 final FirebaseGameManager manager = getManager();
-                Scenes.keyboard.create();
-                Scenes.keyboard.setHint("antiyoy://join...");
-                Scenes.keyboard.setValue("");
-                Scenes.keyboard.setReaction(new AbstractKbReaction() {
+                Scenes.firebaseInput.create();
+                Scenes.firebaseInput.setValue("");
+                Scenes.firebaseInput.setReaction(new AbstractKbReaction() {
                     @Override
                     public void onInputFromKeyboardReceived(String input) {
                         FirebaseConfig.InviteData data = FirebaseConfig.parse(input.trim());

@@ -141,6 +141,7 @@ public class Scenes {
     public static SceneOfflineMenu offlineMenu;
     public static SceneFirebaseHome firebaseHome;
     public static SceneFirebaseLobby firebaseLobby;
+    public static SceneFirebaseInput firebaseInput;
     public static SceneCalendar calendar;
     public static SceneCalendarPauseMenu calendarPauseMenu;
     public static SceneConfirmAskForRenaming confirmAskForRenaming;
@@ -321,6 +322,7 @@ public class Scenes {
         offlineMenu = new SceneOfflineMenu();
         firebaseHome = new SceneFirebaseHome();
         firebaseLobby = new SceneFirebaseLobby();
+        firebaseInput = new SceneFirebaseInput();
         calendar = new SceneCalendar();
         calendarPauseMenu = new SceneCalendarPauseMenu();
         confirmAskForRenaming = new SceneConfirmAskForRenaming();
