@@ -3,8 +3,8 @@ package yio.tro.onliyoy.menu.scenes;
 import com.badlogic.gdx.Gdx;
 import yio.tro.onliyoy.Fonts;
 import yio.tro.onliyoy.menu.elements.AnimationYio;
-import yio.tro.onliyoy.menu.elements.AnnounceViewElement;
 import yio.tro.onliyoy.menu.elements.BackgroundYio;
+import yio.tro.onliyoy.menu.elements.LabelElement;
 import yio.tro.onliyoy.menu.elements.button.ButtonYio;
 import yio.tro.onliyoy.menu.elements.keyboard.AbstractKbReaction;
 import yio.tro.onliyoy.menu.reactions.Reaction;
@@ -17,7 +17,7 @@ import yio.tro.onliyoy.net.firebase.FirebaseGameManager;
  */
 public class SceneFirebaseHome extends SceneYio {
 
-    private AnnounceViewElement infoLabel;
+    private LabelElement infoLabel;
 
     private FirebaseGameManager getManager() {
         return yioGdxGame.firebaseGameManager;
@@ -39,11 +39,12 @@ public class SceneFirebaseHome extends SceneYio {
     }
 
     private void createInfoLabel() {
-        infoLabel = uiFactory.getAnnounceViewElement()
-                .setSize(0.85, 0.2)
+        infoLabel = uiFactory.getLabelElement()
+                .setSize(0.85, 0.05)
                 .centerHorizontal()
                 .alignTop(0.04)
-                .setText(" ");
+                .setFont(Fonts.miniFont)
+                .setTitle(" ");
     }
 
     private void createConfigureButton() {
@@ -99,10 +100,7 @@ public class SceneFirebaseHome extends SceneYio {
     private void updateInfoLabel() {
         FirebaseGameManager manager = getManager();
         String base = manager.getConfig().isConfigured() ? manager.getConfig().getDatabaseUrl() : "(sin configurar)";
-        infoLabel.setText(
-                "Base: " + base + "\n" +
-                        "Soy: " + manager.getPlayerName()
-        );
+        infoLabel.setTitle("Base OK · Soy " + manager.getPlayerName());
     }
 
     private Reaction getConfigureReaction() {

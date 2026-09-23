@@ -3,9 +3,9 @@ package yio.tro.onliyoy.menu.scenes;
 import com.badlogic.gdx.utils.JsonValue;
 import yio.tro.onliyoy.Fonts;
 import yio.tro.onliyoy.menu.elements.AnimationYio;
-import yio.tro.onliyoy.menu.elements.AnnounceViewElement;
 import yio.tro.onliyoy.menu.elements.BackgroundYio;
 import yio.tro.onliyoy.menu.elements.ConditionYio;
+import yio.tro.onliyoy.menu.elements.LabelElement;
 import yio.tro.onliyoy.menu.reactions.Reaction;
 import yio.tro.onliyoy.net.firebase.FirebaseGameManager;
 
@@ -15,7 +15,7 @@ import yio.tro.onliyoy.net.firebase.FirebaseGameManager;
  */
 public class SceneFirebaseLobby extends SceneYio implements FirebaseGameManager.LobbyListener {
 
-    private AnnounceViewElement playersLabel;
+    private LabelElement playersLabel;
 
     private FirebaseGameManager getManager() {
         return yioGdxGame.firebaseGameManager;
@@ -34,11 +34,12 @@ public class SceneFirebaseLobby extends SceneYio implements FirebaseGameManager.
     }
 
     private void createPlayersLabel() {
-        playersLabel = uiFactory.getAnnounceViewElement()
-                .setSize(0.85, 0.5)
+        playersLabel = uiFactory.getLabelElement()
+                .setSize(0.85, 0.06)
                 .centerHorizontal()
                 .alignTop(0.06)
-                .setText(" ");
+                .setFont(Fonts.gameFont)
+                .setTitle(" ");
     }
 
     private void createLaunchButton() {
@@ -78,22 +79,19 @@ public class SceneFirebaseLobby extends SceneYio implements FirebaseGameManager.
         if (playersLabel == null) return;
         FirebaseGameManager manager = getManager();
         JsonValue players = manager.getPlayers();
-        StringBuilder sb = new StringBuilder();
-        sb.append("Partida: ").append(manager.getMatchId()).append("\n\n");
         if (players == null || players.size == 0) {
-            sb.append("Esperando jugadores...");
-        } else {
-            for (String color : FirebaseGameManager.COLORS) {
-                JsonValue player = players.get(color);
-                if (player == null) continue;
-                String id = player.has("id") ? player.getString("id") : "-";
-                String name = player.has("name") ? player.getString("name") : "-";
-                sb.append(color).append(": ").append(name);
-                if (id.equals(manager.getPlayerId())) sb.append("  (yo)");
-                sb.append("\n");
-            }
+            playersLabel.setTitle("Esperando jugadores...");
+            return;
         }
-        playersLabel.setText(sb.toString());
+        StringBuilder names = new StringBuilder();
+        for (String color : FirebaseGameManager.COLORS) {
+            JsonValue player = players.get(color);
+            if (player == null) continue;
+            String name = player.has("name") ? player.getString("name") : "-";
+            if (names.length() > 0) names.append(", ");
+            names.append(name).append("(").append(color).append(")");
+        }
+        playersLabel.setTitle("Partida " + manager.getMatchId().substring(0, Math.min(3, manager.getMatchId().length())) + " · " + names);
     }
 
     private Reaction getLaunchReaction() {

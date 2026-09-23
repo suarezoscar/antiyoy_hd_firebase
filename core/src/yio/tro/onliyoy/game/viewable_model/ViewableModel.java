@@ -383,6 +383,7 @@ public class ViewableModel extends CoreModel {
         if (event.isQuick()) return;
         if (event.author == null) return;
         String matchId = getNetRoot().currentMatchData.matchId;
+        if (matchId == null || matchId.length() < 5) return; // firebase/local: sin servidor
         getNetRoot().sendMessage(NmType.event, matchId.substring(1, 5) + "/" + event.encode());
     }
 
