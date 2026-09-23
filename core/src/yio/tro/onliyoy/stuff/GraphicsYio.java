@@ -19,6 +19,10 @@ public class GraphicsYio {
     public static float width = (float) Gdx.graphics.getWidth();
     public static float dim = width;
     public static float screenRatio = height / width;
+
+    // SafeArea de Android (px): se rellenan desde el AndroidLauncher
+    public static float safeAreaTop = 0;
+    public static float safeAreaBottom = 0;
     public static final float borderThickness = Math.max(1, 0.002f * width);
     public static final float prepFactor = (float) (180 / Math.PI);
     public static final float defCornerRadius = 0.02f * GraphicsYio.height;

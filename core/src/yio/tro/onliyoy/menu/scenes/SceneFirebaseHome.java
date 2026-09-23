@@ -48,7 +48,7 @@ public class SceneFirebaseHome extends SceneYio {
 
     private void createConfigureButton() {
         uiFactory.getButton()
-                .setSize(0.5, 0.06)
+                .setSize(0.72, 0.065)
                 .centerHorizontal()
                 .alignUnder(infoLabel, 0.005)
                 .setBackground(BackgroundYio.green)
@@ -59,7 +59,7 @@ public class SceneFirebaseHome extends SceneYio {
 
     private void createCreateButton() {
         uiFactory.getButton()
-                .setSize(0.5, 0.06)
+                .setSize(0.72, 0.065)
                 .centerHorizontal()
                 .alignUnder(previousElement, 0.01)
                 .setBackground(BackgroundYio.magenta)
@@ -70,7 +70,7 @@ public class SceneFirebaseHome extends SceneYio {
 
     private void createJoinButton() {
         uiFactory.getButton()
-                .setSize(0.5, 0.06)
+                .setSize(0.72, 0.065)
                 .centerHorizontal()
                 .alignUnder(previousElement, 0.01)
                 .setBackground(BackgroundYio.orange)
@@ -81,7 +81,7 @@ public class SceneFirebaseHome extends SceneYio {
 
     private void createCopyLinkButton() {
         uiFactory.getButton()
-                .setSize(0.5, 0.06)
+                .setSize(0.72, 0.065)
                 .centerHorizontal()
                 .alignUnder(previousElement, 0.01)
                 .setBackground(BackgroundYio.yellow)

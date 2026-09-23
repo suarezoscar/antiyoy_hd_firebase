@@ -450,10 +450,12 @@ public abstract class InterfaceElement<T extends InterfaceElement<T>> {
 
 
     public T alignTop(double offset) {
+        float safeInset = (parent == screen) ? GraphicsYio.safeAreaTop : 0;
         position.y = (float) (parent.position.y
                 + parent.position.height
                 - position.height
                 - offset * GraphicsYio.height
+                - safeInset
                 - getParentCompensationY(parent));
 
         onPositionChanged();
@@ -473,8 +475,10 @@ public abstract class InterfaceElement<T extends InterfaceElement<T>> {
 
 
     public T alignBottom(double offset) {
+        float safeInset = (parent == screen) ? GraphicsYio.safeAreaBottom : 0;
         position.y = (float) (parent.position.y
                 + offset * GraphicsYio.height
+                + safeInset
                 - getParentCompensationY(parent));
 
         onPositionChanged();
