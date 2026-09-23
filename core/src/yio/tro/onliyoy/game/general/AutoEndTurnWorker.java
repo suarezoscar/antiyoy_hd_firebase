@@ -9,7 +9,7 @@ import yio.tro.onliyoy.game.debug.DebugFlags;
 import yio.tro.onliyoy.game.viewable_model.ViewableModel;
 import yio.tro.onliyoy.menu.elements.button.ButtonYio;
 import yio.tro.onliyoy.menu.scenes.Scenes;
-import yio.tro.onliyoy.net.NetRoot;
+import yio.tro.onliyoy.net.firebase.FirebaseGameManager;
 import yio.tro.onliyoy.stuff.RepeatYio;
 
 public class AutoEndTurnWorker implements IEventListener {
@@ -50,9 +50,9 @@ public class AutoEndTurnWorker implements IEventListener {
         if (!refEntitiesManager.getCurrentEntity().isHuman()) return;
         if (getViewableModel().diplomacyManager.enabled) return;
         if (!getViewableModel().isNetMatch()) return;
-        NetRoot netRoot = objectsLayer.gameController.yioGdxGame.netRoot;
-        long turnEndTime = netRoot.currentMatchData.turnEndTime;
-        if (turnEndTime > 0 && turnEndTime - System.currentTimeMillis() < 4000) return;
+        FirebaseGameManager firebase = objectsLayer.gameController.yioGdxGame.firebaseGameManager;
+        long optionalDeadline = (firebase == null) ? 0 : firebase.getTurnEndTimeMillis();
+        if (optionalDeadline > 0 && optionalDeadline - System.currentTimeMillis() < 4000) return;
         if (!Scenes.mechanicsOverlay.isCurrentlyVisible()) return;
         ButtonYio endTurnButton = Scenes.mechanicsOverlay.endTurnButton;
         if (endTurnButton.getFactor().isInDestroyState()) return;

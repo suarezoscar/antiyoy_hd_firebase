@@ -10,9 +10,7 @@ import yio.tro.onliyoy.game.viewable_model.EventFlowAnalyzer;
 import yio.tro.onliyoy.game.viewable_model.ViewableModel;
 import yio.tro.onliyoy.menu.MenuSwitcher;
 import yio.tro.onliyoy.menu.scenes.Scenes;
-import yio.tro.onliyoy.net.postpone.PostponedReactionsManager;
 import yio.tro.onliyoy.stuff.TimeMeasureYio;
-import yio.tro.onliyoy.stuff.human_imitation.HumanImitationWorker;
 
 public class LoadingManager {
 
@@ -75,7 +73,7 @@ public class LoadingManager {
                 currentProcess = new ProcessEditorImport(this);
                 break;
             case net_match:
-                currentProcess = new ProcessNetMatch(this);
+                currentProcess = new ProcessEmpty(this);
                 break;
             case firebase_match:
                 currentProcess = new ProcessFirebaseMatch(this);
@@ -166,7 +164,6 @@ public class LoadingManager {
         checkIfRulesAreSet();
         checkToClearInputEventsBuffer();
         checkToApplyDebugModifications();
-        yioGdxGame.humanImitationWorker.onMatchStarted();
         working = false;
     }
 
@@ -183,7 +180,6 @@ public class LoadingManager {
 
     private void checkToClearInputEventsBuffer() {
         if (gameController.objectsLayer.viewableModel.isNetMatch()) return;
-        PostponedReactionsManager.aprServerEvent.clearBuffer();
     }
 
 

@@ -9,36 +9,24 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import yio.tro.onliyoy.game.campaign.CampaignLevels;
-import yio.tro.onliyoy.game.campaign.CampaignManager;
-import yio.tro.onliyoy.game.core_model.ai.ExternalAiWorker;
 import yio.tro.onliyoy.game.export_import.ExportParameters;
 import yio.tro.onliyoy.game.general.GameController;
 import yio.tro.onliyoy.game.general.GameRules;
 import yio.tro.onliyoy.game.general.SkinManager;
 import yio.tro.onliyoy.game.loading.LoadingManager;
-import yio.tro.onliyoy.game.save_system.UserLevelsProgressManager;
-import yio.tro.onliyoy.game.tests.AbstractTest;
 import yio.tro.onliyoy.game.view.GameView;
 import yio.tro.onliyoy.game.view.game_renders.GameRendersList;
-import yio.tro.onliyoy.game.viewable_model.EventFlowAnalyzer;
-import yio.tro.onliyoy.game.viewable_model.RejoinWorker;
 import yio.tro.onliyoy.menu.*;
 import yio.tro.onliyoy.menu.elements.BackgroundYio;
 import yio.tro.onliyoy.menu.reactions.Reaction;
 import yio.tro.onliyoy.menu.scenes.SceneYio;
 import yio.tro.onliyoy.menu.scenes.Scenes;
-import yio.tro.onliyoy.net.NetRoot;
-import yio.tro.onliyoy.net.NetTimeSynchronizer;
-import yio.tro.onliyoy.net.shared.CharLocalizerYio;
 import yio.tro.onliyoy.stuff.FrameBufferYio;
 import yio.tro.onliyoy.stuff.GraphicsYio;
 import yio.tro.onliyoy.stuff.StoreLinksYio;
-import yio.tro.onliyoy.stuff.calendar.CalendarManager;
 import yio.tro.onliyoy.stuff.factor_yio.FactorYio;
 import yio.tro.onliyoy.stuff.factor_yio.MbFactoryYio;
 import yio.tro.onliyoy.stuff.factor_yio.MovementType;
-import yio.tro.onliyoy.stuff.human_imitation.HumanImitationWorker;
 
 import java.util.Random;
 
@@ -72,15 +60,9 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
     public Stage stage; // for keyboard input
     public InputMultiplexer inputMultiplexer;
     SplashManager splashManager;
-    public AbstractTest currentTest;
-    public ISignInManagerYio signInManager;
     FpsRenderer fpsRenderer;
-    public NetRoot netRoot;
     public yio.tro.onliyoy.net.firebase.FirebaseGameManager firebaseGameManager;
     public boolean minimized;
-    public RejoinWorker rejoinWorker;
-    public IBillingManagerYio billingManager;
-    public HumanImitationWorker humanImitationWorker;
 
 
     @Override
@@ -97,11 +79,9 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
         frameSkipCount = 50; // >= 2
         frameBuffer = FrameBufferYio.getInstance(Pixmap.Format.RGB565, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
         Gdx.gl.glClearColor(0, 0, 0, 1);
-        netRoot = new NetRoot(this);
         firebaseGameManager = new yio.tro.onliyoy.net.firebase.FirebaseGameManager(this);
         slowMo = false;
         stage = new Stage();
-        currentTest = null;
         minimized = false;
     }
 
@@ -137,14 +117,8 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
         SoundManager.loadSounds();
         onKeyReactions = new OnKeyReactions(this);
         fpsRenderer = new FpsRenderer(this);
-        rejoinWorker = new RejoinWorker(this);
-        menuControllerYio.createInitialScene();
-        // temporal (hasta fase 2): evita el Socket bloqueante al servidor de yiotro
-        netRoot.enableOfflineMode();
-        // Fase 1: el juego arranca directo en la pantalla Firebase
-        Scenes.firebaseHome.create();
+        menuControllerYio.createInitialScene(); // crea SceneFirebaseHome directo
         SkinManager.getInstance().onAppStarted();
-        humanImitationWorker = new HumanImitationWorker(this);
 
         initialLoadingTime = System.currentTimeMillis() - startTime;
         System.out.println("Initial loading time: " + initialLoadingTime);
@@ -161,17 +135,7 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
         GameRendersList.initialize();
         ExportParameters.initialize();
         StoreLinksYio.initialize();
-        CharLocalizerYio.initialize();
-        NetTimeSynchronizer.initialize();
-        UserLevelsProgressManager.initialize();
-        EventFlowAnalyzer.initialize();
-        AlternativeUpdateWorker.initialize();
         MenuSwitcher.initialize();
-        CalendarManager.initialize();
-        CalendarManager.getInstance().loadValues();
-        CampaignLevels.initialize();
-        CampaignManager.initialize(this);
-        ExternalAiWorker.initialize();
         RefreshRateDetector.initialize();
     }
 
@@ -222,15 +186,12 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
 
         checkForSlowMo();
         generalBackgroundManager.move();
-        netRoot.move();
-        humanImitationWorker.move();
         RefreshRateDetector.getInstance().move();
         checkToUnPause();
 
         gameView.move();
 
         moveInternalGameStuff();
-        moveCurrentTest();
 
         menuControllerYio.move();
         if (loadingManager.working) return; // immediately after button press
@@ -245,12 +206,6 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
 
         gameView.updateZoomQuality();
         gameController.move();
-    }
-
-
-    private void moveCurrentTest() {
-        if (currentTest == null) return;
-        currentTest.move();
     }
 
 
@@ -561,16 +516,8 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
     }
 
 
-    public void setCurrentTest(AbstractTest currentTest) {
-        this.currentTest = currentTest;
-    }
-
-
     public void exitApp() {
         startedExitProcess = true;
-        if (netRoot != null) {
-            netRoot.onAppExit();
-        }
         TextFitParser instance = TextFitParser.getInstance();
         instance.disposeAllTextures();
         instance.killInstance();

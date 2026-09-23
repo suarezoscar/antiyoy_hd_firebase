@@ -1,7 +1,6 @@
 package yio.tro.onliyoy.game.general;
 
 import yio.tro.onliyoy.SettingsManager;
-import yio.tro.onliyoy.game.campaign.CampaignManager;
 import yio.tro.onliyoy.game.campaign.Difficulty;
 import yio.tro.onliyoy.game.core_model.*;
 import yio.tro.onliyoy.game.core_model.ai.AiManager;
@@ -10,21 +9,13 @@ import yio.tro.onliyoy.game.core_model.events.EventsFactory;
 import yio.tro.onliyoy.game.core_model.events.EventsManager;
 import yio.tro.onliyoy.game.core_model.events.HistoryManager;
 import yio.tro.onliyoy.game.debug.DebugFlags;
-import yio.tro.onliyoy.game.editor.EditorManager;
 import yio.tro.onliyoy.game.export_import.ExportManager;
 import yio.tro.onliyoy.game.export_import.ExportParameters;
-import yio.tro.onliyoy.game.save_system.UserLevelsProgressManager;
-import yio.tro.onliyoy.game.viewable_model.ReplayManager;
-import yio.tro.onliyoy.game.viewable_model.StatisticsWorker;
 import yio.tro.onliyoy.game.viewable_model.UndoManager;
 import yio.tro.onliyoy.game.viewable_model.ViewableModel;
 import yio.tro.onliyoy.menu.scenes.Scenes;
-import yio.tro.onliyoy.net.NetRoot;
 import yio.tro.onliyoy.net.firebase.FirebaseGameManager;
-import yio.tro.onliyoy.net.shared.NetValues;
-import yio.tro.onliyoy.net.shared.NmType;
 import yio.tro.onliyoy.stuff.*;
-import yio.tro.onliyoy.stuff.calendar.CalendarManager;
 
 public class ObjectsLayer implements TouchableYio, AcceleratableYio {
 
@@ -32,18 +23,15 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
     public ExportManager exportManager;
     public ViewableModel viewableModel;
     public HistoryManager historyManager;
-    public ReplayManager replayManager;
     public UndoManager undoManager;
     public AiManager aiManager;
     RepeatYio<ObjectsLayer> repeatAI;
-    public EditorManager editorManager;
     RepeatYio<ObjectsLayer> repeatCheckToEndMatch;
     RepeatYio<ObjectsLayer> repeatAutoSkip;
     public SyncManager syncManager;
     public TreeManager treeManager;
     RepeatYio<ObjectsLayer> repeatForceEndTurn;
     AutoEndTurnWorker autoEndTurnWorker;
-    public CalendarData calendarData;
 
 
     public ObjectsLayer(GameController gameController) {
@@ -52,14 +40,11 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
         exportManager = new ExportManager();
         viewableModel = new ViewableModel(this);
         historyManager = new HistoryManager(viewableModel);
-        replayManager = new ReplayManager(this);
         undoManager = new UndoManager(viewableModel);
         aiManager = new AiManager(viewableModel, Difficulty.balancer);
-        editorManager = new EditorManager(this);
         syncManager = new SyncManager(viewableModel);
         treeManager = new TreeManager(viewableModel);
         autoEndTurnWorker = new AutoEndTurnWorker(this);
-        calendarData = new CalendarData();
 
         defaultValues();
         initRepeats();
@@ -98,9 +83,7 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
     @Override
     public void moveActually() {
         viewableModel.move();
-        replayManager.moveActually();
         repeatAI.move();
-        editorManager.moveActually();
         repeatCheckToEndMatch.move();
         repeatAutoSkip.move();
         repeatForceEndTurn.move();
@@ -109,20 +92,11 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
 
     private void checkToForceEndTurn() {
         FirebaseGameManager firebase = gameController.yioGdxGame.firebaseGameManager;
-        if (firebase != null && firebase.getAdapter() != null) {
-            long deadline = firebase.getTurnEndTimeMillis();
-            if (deadline == 0) return;
-            if (System.currentTimeMillis() < deadline) return;
-            forceEndTurnNow("firebase");
-            return;
-        }
-        EntitiesManager entitiesManager = viewableModel.refModel.entitiesManager;
-        if (!entitiesManager.getCurrentEntity().isHuman()) return;
-        if (!viewableModel.isNetMatch()) return;
-        NetRoot netRoot = getNetRoot();
-        if (netRoot.currentMatchData.turnEndTime == 0) return;
-        if (System.currentTimeMillis() < netRoot.currentMatchData.turnEndTime) return;
-        forceEndTurnNow("net");
+        if (firebase == null || firebase.getAdapter() == null) return;
+        long deadline = firebase.getTurnEndTimeMillis();
+        if (deadline == 0) return;
+        if (System.currentTimeMillis() < deadline) return;
+        forceEndTurnNow("firebase");
     }
 
 
@@ -132,11 +106,6 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
         HColor previousColor = viewableModel.entitiesManager.getCurrentColor();
         eventsManager.applyEvent(endTurnEvent);
         System.out.println("Forced turn end (" + source + "): " + previousColor + " -> " + viewableModel.entitiesManager.getCurrentColor());
-    }
-
-
-    private NetRoot getNetRoot() {
-        return gameController.yioGdxGame.netRoot;
     }
 
 
@@ -169,56 +138,25 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
         if (gameController.yioGdxGame.gamePaused) return;
         historyManager.onMatchEnded();
         aiManager.onMatchEnded();
-        (new StatisticsWorker(viewableModel, historyManager)).apply(matchResults.statisticsData, matchResults.winnerColor);
         matchResults.levelSize = gameController.sizeManager.initialLevelSize;
         matchResults.rulesType = viewableModel.ruleset.getRulesType();
         matchResults.gameMode = gameController.gameMode;
         gameController.yioGdxGame.applyFullTransitionToUI();
         gameController.scriptManager.onMatchEnded();
-        checkToCopyCalendarData(matchResults);
         Scenes.matchResults.create();
         Scenes.matchResults.setMatchResults(matchResults);
         checkToSaveProgress(matchResults);
     }
 
 
-    private void checkToCopyCalendarData(MatchResults matchResults) {
-        if (matchResults.gameMode != GameMode.calendar) return;
-        matchResults.year = calendarData.year;
-        matchResults.month = calendarData.month;
-        matchResults.day = calendarData.day;
-    }
-
-
     private void checkToSaveProgress(MatchResults matchResults) {
         PlayerEntity winner = viewableModel.entitiesManager.getEntity(matchResults.winnerColor);
         if (!winner.isHuman()) return;
-        switch (matchResults.gameMode) {
-            default:
-                break;
-            case user_level:
-                String id = getNetRoot().tempUlTransferData.id;
-                UserLevelsProgressManager.getInstance().onCompleted(id);
-                getNetRoot().sendMessage(NmType.on_user_level_completed, "");
-                break;
-            case calendar:
-                CalendarManager.getInstance().onCalendarDayCompleted(matchResults);
-                break;
-            case campaign:
-                CampaignManager instance = CampaignManager.getInstance();
-                instance.onLevelCompleted(instance.currentLevelIndex);
-                break;
-            case tutorial:
-                gameController.tutorialManager.onTutorialLevelCompleted();
-                break;
-        }
     }
 
 
     @Override
     public void moveVisually() {
-        replayManager.moveVisually();
-        editorManager.moveVisually();
         autoEndTurnWorker.move();
     }
 
@@ -281,19 +219,16 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
 
     public void defaultValues() {
         viewableModel.buildGraph(gameController.sizeManager.position, getHexRadius());
-        replayManager.defaultValues();
     }
 
 
     public float getHexRadius() {
-        return NetValues.HEX_RADIUS * GraphicsYio.width;
+        return 0.07f * GraphicsYio.width;
     }
 
 
     public void onBasicStuffCreated() {
         viewableModel.onBasicStuffCreated();
-        replayManager.onBasicStuffCreated();
-        editorManager.onBasicStuffCreated();
     }
 
 

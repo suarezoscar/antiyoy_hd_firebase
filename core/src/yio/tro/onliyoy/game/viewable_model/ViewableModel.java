@@ -16,9 +16,6 @@ import yio.tro.onliyoy.game.general.ObjectsLayer;
 import yio.tro.onliyoy.game.touch_modes.TouchMode;
 import yio.tro.onliyoy.menu.elements.button.ButtonYio;
 import yio.tro.onliyoy.menu.scenes.Scenes;
-import yio.tro.onliyoy.net.NetRoot;
-import yio.tro.onliyoy.net.NetTimeSynchronizer;
-import yio.tro.onliyoy.net.shared.NmType;
 import yio.tro.onliyoy.stuff.TimeMeasureYio;
 import yio.tro.onliyoy.stuff.object_pool.ObjectPoolYio;
 
@@ -167,7 +164,6 @@ public class ViewableModel extends CoreModel {
         if (Scenes.mechanicsOverlay.isCurrentlyVisible()) {
             Scenes.mechanicsOverlay.onEndTurnEventApplied();
         }
-        updateNetUiOnEndTurn(event);
         checkToNotifyAboutTurnStart();
         objectsLayer.checkToEndMatch();
     }
@@ -183,14 +179,6 @@ public class ViewableModel extends CoreModel {
 
 
     private void updateNetUiOnEndTurn(AbstractEvent event) {
-        if (!Scenes.netOverlay.isCurrentlyVisible()) return;
-        Scenes.netOverlay.onEndTurnEventApplied();
-        if (event == null) return;
-        EventTurnEnd eventTurnEnd = (EventTurnEnd) event;
-        // turn ends on client slightly sooner to decrease probability of desync problem
-        // eventTurnEnd.targetEndTime was updated on server, so it's a server time
-        long clientTime = NetTimeSynchronizer.getInstance().convertToClientTime(eventTurnEnd.targetEndTime);
-        getNetRoot().currentMatchData.turnEndTime = clientTime - 1000;
     }
 
 
@@ -349,7 +337,6 @@ public class ViewableModel extends CoreModel {
         } else {
             buffer.add(event);
         }
-        checkToNotifyServerAboutEvent(event);
     }
 
 
@@ -377,57 +364,6 @@ public class ViewableModel extends CoreModel {
 
 
     private void checkToNotifyServerAboutEvent(AbstractEvent event) {
-        if (!isNetMatch()) return;
-        if (event.isReusable()) return;
-        if (!event.isNotable()) return;
-        if (event.isQuick()) return;
-        if (event.author == null) return;
-        String matchId = getNetRoot().currentMatchData.matchId;
-        if (matchId == null || matchId.length() < 5) return; // firebase/local: sin servidor
-        getNetRoot().sendMessage(NmType.event, matchId.substring(1, 5) + "/" + event.encode());
-    }
-
-
-    public void onReceivedEventFromServer(String code) {
-        if (code.length() < 3) return;
-        String[] split = code.split(" ");
-        String eventKey = split[0];
-        EventType eventType = EventKeys.convertKeyToType(eventKey);
-        AbstractEvent event = eventsManager.factory.createEvent(eventType);
-        iwEventsList.restoreSingleEvent(event, split);
-        if (isWrongTurnEndEvent(event)) {
-            System.out.println("ViewableModel.onReceivedEventFromServer: wrong end turn event " + event);
-            if (DebugFlags.humanImitation) {
-                getNetRoot().sendMessage(NmType.debug_text, "Wrong te event: " + event + ", current=" + entitiesManager.getCurrentColor());
-            }
-            return;
-        }
-        if (!event.isValid() || DebugFlags.treatNextServerEventAsInvalid) {
-            onReceivedInvalidEvent(event);
-            return;
-        }
-        eventsManager.applyEvent(event);
-    }
-
-
-    private void onReceivedInvalidEvent(AbstractEvent event) {
-        DebugFlags.treatNextServerEventAsInvalid = false;
-        System.out.println("ViewableModel.onReceivedEventFromServer, invalid: " + event);
-        getNetRoot().sendMessage(NmType.request_sync, "invalid event: " + event);
-        SoundManager.playSound(SoundType.alert, true);
-    }
-
-
-    private boolean isWrongTurnEndEvent(AbstractEvent event) {
-        if (!(event instanceof EventTurnEnd)) return false;
-        EventTurnEnd eventTurnEnd = (EventTurnEnd) event;
-        if (eventTurnEnd.currentColor == null) return false;
-        return eventTurnEnd.currentColor != entitiesManager.getCurrentColor();
-    }
-
-
-    private NetRoot getNetRoot() {
-        return objectsLayer.gameController.yioGdxGame.netRoot;
     }
 
 
@@ -453,8 +389,9 @@ public class ViewableModel extends CoreModel {
 
 
     private void onRequestedUndoWhenListIsEmpty() {
-        if (!DebugFlags.humanImitation) return;
-        getNetRoot().sendMessage(NmType.debug_text, "undo items list is empty");
+        if (DebugFlags.humanImitation) {
+            System.out.println("undo items list is empty");
+        }
     }
 
 
