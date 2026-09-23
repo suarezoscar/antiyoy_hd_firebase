@@ -9,6 +9,7 @@ import yio.tro.onliyoy.game.debug.DebugFlags;
 import yio.tro.onliyoy.game.general.GameMode;
 import yio.tro.onliyoy.game.touch_modes.TouchMode;
 import yio.tro.onliyoy.game.viewable_model.ViewableModel;
+import yio.tro.onliyoy.menu.MenuControllerYio;
 import yio.tro.onliyoy.menu.elements.AnimationYio;
 import yio.tro.onliyoy.menu.elements.ConditionYio;
 import yio.tro.onliyoy.menu.elements.LabelElement;
@@ -36,7 +37,6 @@ public class SceneMechanicsOverlay extends ModalSceneYio {
     public ButtonYio undoButton;
     private MechanicsHookElement mechanicsHookElement;
     private LabelElement turnTimerLabel;
-    private long lastTimerUpdate;
 
 
     public SceneMechanicsOverlay() {
@@ -60,55 +60,65 @@ public class SceneMechanicsOverlay extends ModalSceneYio {
 
 
     private void createTurnTimerLabel() {
-        turnTimerLabel = uiFactory.getLabelElement()
-                .setSize(0.5, 0.045)
+        TurnTimerLabel label = new TurnTimerLabel(menuControllerYio);
+        label.overlay = this;
+        uiFactoryElementsOnly(label);
+        turnTimerLabel = label;
+        label.setSize(0.5, 0.045)
                 .centerHorizontal()
                 .alignTop(0.005)
                 .setFont(Fonts.miniFont)
-                .setTitle(" ")
-                .setAllowedToAppear(getFirebaseCondition());
+                .setTitle(" ");
     }
 
 
-    private ConditionYio getFirebaseCondition() {
-        return new ConditionYio() {
-            @Override
-            public boolean get() {
-                return yioGdxGame.firebaseGameManager != null && yioGdxGame.firebaseGameManager.getAdapter() != null;
-            }
-        };
+    private void uiFactoryElementsOnly(LabelElement labelElement) {
+        // el uiFactory no tiene getter para subclases: anadimos el elemento a la escena directamente
+        addLocalElement(labelElement);
+        menuControllerYio.addElement(labelElement);
     }
 
 
-    @Override
-    public void move() {
-        super.move();
-        updateTurnTimer();
-    }
-
-
-    private void updateTurnTimer() {
-        if (turnTimerLabel == null) return;
-        if (!turnTimerLabel.isVisible()) return;
-        long now = System.currentTimeMillis();
-        if (now - lastTimerUpdate < 500) return;
-        lastTimerUpdate = now;
-        FirebaseGameManager manager = yioGdxGame.firebaseGameManager;
-        if (manager == null) return;
-        long deadline = manager.getTurnEndTimeMillis();
-        long remaining = deadline - now;
-        if (remaining < 0) remaining = 0;
-        long seconds = remaining / 1000;
-        String who = manager.getMyColor().equals(getCurrentColorName())
-                ? languagesManager.getString("tu_turno")
-                : languagesManager.getString("turno_rival");
-        turnTimerLabel.setTitle(who + " · " + (seconds / 60) + ":" + String.format("%02d", seconds % 60));
-    }
-
-
-    private String getCurrentColorName() {
+    String getCurrentColorName() {
         if (getObjectsLayer() == null || getObjectsLayer().viewableModel == null) return "-";
         return getObjectsLayer().viewableModel.entitiesManager.getCurrentColor().toString();
+    }
+
+
+    /**
+     * Etiqueta de cuenta atras que se actualiza a si misma cada 500 ms (moveElement
+     * corre para todo elemento visible, sin depender del focusScene).
+     */
+    private static class TurnTimerLabel extends LabelElement {
+
+        public SceneMechanicsOverlay overlay;
+        private long lastUpdate;
+
+
+        public TurnTimerLabel(MenuControllerYio menuControllerYio) {
+            super(menuControllerYio);
+            lastUpdate = 0;
+        }
+
+
+        @Override
+        public void moveElement() {
+            super.moveElement();
+            FirebaseGameManager manager = overlay.yioGdxGame.firebaseGameManager;
+            if (manager == null || manager.getAdapter() == null) return;
+            long now = System.currentTimeMillis();
+            if (now - lastUpdate < 500) return;
+            lastUpdate = now;
+            long deadline = manager.getTurnEndTimeMillis();
+            if (deadline == 0) return;
+            long remaining = deadline - now;
+            if (remaining < 0) remaining = 0;
+            long seconds = remaining / 1000;
+            String who = manager.getMyColor().equals(overlay.getCurrentColorName())
+                    ? overlay.languagesManager.getString("tu_turno")
+                    : overlay.languagesManager.getString("turno_rival");
+            setTitle(who + " · " + (seconds / 60) + ":" + String.format("%02d", seconds % 60));
+        }
     }
 
 
