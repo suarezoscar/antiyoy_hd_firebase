@@ -139,6 +139,8 @@ public class Scenes {
     public static SceneChooseAdminReport chooseAdminReport;
     public static SceneAdminTextReport adminTextReport;
     public static SceneOfflineMenu offlineMenu;
+    public static SceneFirebaseHome firebaseHome;
+    public static SceneFirebaseLobby firebaseLobby;
     public static SceneCalendar calendar;
     public static SceneCalendarPauseMenu calendarPauseMenu;
     public static SceneConfirmAskForRenaming confirmAskForRenaming;
@@ -317,6 +319,8 @@ public class Scenes {
         chooseAdminReport = new SceneChooseAdminReport();
         adminTextReport = new SceneAdminTextReport();
         offlineMenu = new SceneOfflineMenu();
+        firebaseHome = new SceneFirebaseHome();
+        firebaseLobby = new SceneFirebaseLobby();
         calendar = new SceneCalendar();
         calendarPauseMenu = new SceneCalendarPauseMenu();
         confirmAskForRenaming = new SceneConfirmAskForRenaming();

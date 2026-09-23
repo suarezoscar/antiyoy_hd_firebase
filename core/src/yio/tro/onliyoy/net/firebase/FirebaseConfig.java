@@ -17,7 +17,7 @@ import java.net.URLEncoder;
  */
 public class FirebaseConfig {
 
-    private static final String PREFS_NAME = "antiyoy_firebase";
+    public static final String PREFS_NAME = "antiyoy_firebase";
     private static final String KEY_DB_URL = "db_url";
     private static final String KEY_API_KEY = "api_key";
 

@@ -89,6 +89,7 @@ public class SceneOfflineMenu extends SceneYio{
                     new TemporaryMbeItem("user_levels", BackgroundYio.cyan, getOpenSceneReaction(Scenes.offlineUserLevels)),
                     new TemporaryMbeItem("campaign", BackgroundYio.orange, getOpenSceneReaction(Scenes.campaign)),
                     new TemporaryMbeItem("load", BackgroundYio.green, getOpenSceneReaction(Scenes.loadFromSlot)),
+                    new TemporaryMbeItem("online_rtdb", BackgroundYio.cyan, getOpenSceneReaction(Scenes.firebaseHome)),
             };
         }
         return new TemporaryMbeItem[]{
@@ -96,6 +97,7 @@ public class SceneOfflineMenu extends SceneYio{
                 new TemporaryMbeItem("editor", BackgroundYio.yellow, getOpenSceneReaction(Scenes.editorLobby)),
                 new TemporaryMbeItem("campaign", BackgroundYio.orange, getOpenSceneReaction(Scenes.campaign)),
                 new TemporaryMbeItem("load", BackgroundYio.green, getOpenSceneReaction(Scenes.loadFromSlot)),
+                new TemporaryMbeItem("online_rtdb", BackgroundYio.cyan, getOpenSceneReaction(Scenes.firebaseHome)),
         };
     }
 

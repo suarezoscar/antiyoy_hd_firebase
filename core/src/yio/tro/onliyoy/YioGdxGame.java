@@ -76,6 +76,7 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
     public ISignInManagerYio signInManager;
     FpsRenderer fpsRenderer;
     public NetRoot netRoot;
+    public yio.tro.onliyoy.net.firebase.FirebaseGameManager firebaseGameManager;
     public boolean minimized;
     public RejoinWorker rejoinWorker;
     public IBillingManagerYio billingManager;
@@ -97,6 +98,7 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
         frameBuffer = FrameBufferYio.getInstance(Pixmap.Format.RGB565, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         netRoot = new NetRoot(this);
+        firebaseGameManager = new yio.tro.onliyoy.net.firebase.FirebaseGameManager(this);
         slowMo = false;
         stage = new Stage();
         currentTest = null;

@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.JsonValue;
 public class FirebaseMatchAdapter {
 
     public interface Callbacks {
-        void onState(String status, String levelCode, String currentColor, long turnEndTime);
+        void onState(String status, String levelCode, String currentColor, long turnEndTime, int version);
 
         void onPlayers(JsonValue players);
 
@@ -86,7 +86,8 @@ public class FirebaseMatchAdapter {
                 String levelCode = root.has("levelCode") ? root.getString("levelCode") : null;
                 String currentColor = root.has("currentColor") ? root.getString("currentColor") : null;
                 long turnEndTime = root.has("turnEndTime") ? root.getLong("turnEndTime") : 0L;
-                callbacks.onState(status, levelCode, currentColor, turnEndTime);
+                int version = root.has("version") ? root.getInt("version") : 0;
+                callbacks.onState(status, levelCode, currentColor, turnEndTime, version);
                 callbacks.onPlayers(root.get("players"));
             }
 
