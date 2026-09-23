@@ -10,12 +10,14 @@ import yio.tro.onliyoy.menu.reactions.Reaction;
 import yio.tro.onliyoy.net.firebase.FirebaseGameManager;
 
 /**
- * Lobby de una partida Firebase: jugadores en vivo y, para el creador, el botón
- * "Lanzar" que genera el mapa y lo publica en RTDB.
+ * Lobby de una partida Firebase: lista de jugadores en vivo y, para el creador,
+ * el botón "Lanzar" (visible solo cuando hay al menos 2 jugadores).
  */
 public class SceneFirebaseLobby extends SceneYio implements FirebaseGameManager.LobbyListener {
 
-    private LabelElement playersLabel;
+    private LabelElement titleLabel;
+    private LabelElement[] playerLabels;
+    private LabelElement statusLabel;
 
     private FirebaseGameManager getManager() {
         return yioGdxGame.firebaseGameManager;
@@ -28,17 +30,40 @@ public class SceneFirebaseLobby extends SceneYio implements FirebaseGameManager.
 
     @Override
     protected void initialize() {
-        createPlayersLabel();
+        playerLabels = new LabelElement[FirebaseGameManager.COLORS.length];
+        createTitleLabel();
+        createPlayerLabels();
+        createStatusLabel();
         createLaunchButton();
         spawnBackButton(getBackReaction());
     }
 
-    private void createPlayersLabel() {
-        playersLabel = uiFactory.getLabelElement()
-                .setSize(0.85, 0.06)
+    private void createTitleLabel() {
+        titleLabel = uiFactory.getLabelElement()
+                .setSize(0.7, 0.06)
                 .centerHorizontal()
-                .alignTop(0.06)
+                .alignTop(0.05)
                 .setFont(Fonts.gameFont)
+                .setTitle(" ");
+    }
+
+    private void createPlayerLabels() {
+        for (int i = 0; i < FirebaseGameManager.COLORS.length; i++) {
+            playerLabels[i] = uiFactory.getLabelElement()
+                    .setSize(0.7, 0.05)
+                    .centerHorizontal()
+                    .alignTop(0.13 + i * 0.055)
+                    .setFont(Fonts.miniFont)
+                    .setTitle(" ");
+        }
+    }
+
+    private void createStatusLabel() {
+        statusLabel = uiFactory.getLabelElement()
+                .setSize(0.7, 0.05)
+                .centerHorizontal()
+                .alignBottom(0.24)
+                .setFont(Fonts.miniFont)
                 .setTitle(" ");
     }
 
@@ -46,19 +71,20 @@ public class SceneFirebaseLobby extends SceneYio implements FirebaseGameManager.
         uiFactory.getButton()
                 .setSize(0.5, 0.07)
                 .centerHorizontal()
-                .alignBottom(0.05)
+                .alignBottom(0.1)
                 .setBackground(BackgroundYio.magenta)
                 .applyText("lanzar")
-                .setAllowedToAppear(getHostCondition())
+                .setAllowedToAppear(getLaunchCondition())
                 .setReaction(getLaunchReaction())
                 .setAnimation(AnimationYio.up);
     }
 
-    private ConditionYio getHostCondition() {
+    private ConditionYio getLaunchCondition() {
         return new ConditionYio() {
             @Override
             public boolean get() {
-                return getManager().isHost();
+                JsonValue players = getManager().getPlayers();
+                return players != null && players.size >= 2;
             }
         };
     }
@@ -67,31 +93,50 @@ public class SceneFirebaseLobby extends SceneYio implements FirebaseGameManager.
     protected void onAppear() {
         super.onAppear();
         getManager().setLobbyListener(this);
-        updatePlayersLabel();
+        updateLabels();
     }
 
     @Override
     public void onLobby(JsonValue players) {
-        updatePlayersLabel();
+        updateLabels();
     }
 
-    private void updatePlayersLabel() {
-        if (playersLabel == null) return;
+    private void updateLabels() {
         FirebaseGameManager manager = getManager();
+        if (titleLabel != null) {
+            titleLabel.setTitle(languagesManager.getString("partida") + " " + shortId(manager.getMatchId()));
+        }
         JsonValue players = manager.getPlayers();
-        if (players == null || players.size == 0) {
-            playersLabel.setTitle(languagesManager.getString("esperando_jugadores"));
-            return;
-        }
-        StringBuilder names = new StringBuilder();
-        for (String color : FirebaseGameManager.COLORS) {
-            JsonValue player = players.get(color);
-            if (player == null) continue;
+        int count = 0;
+        for (int i = 0; i < FirebaseGameManager.COLORS.length; i++) {
+            String color = FirebaseGameManager.COLORS[i];
+            JsonValue player = (players == null) ? null : players.get(color);
+            if (player == null) {
+                playerLabels[i].setTitle(" ");
+                continue;
+            }
+            count++;
             String name = player.has("name") ? player.getString("name") : "-";
-            if (names.length() > 0) names.append(", ");
-            names.append(name).append("(").append(color).append(")");
+            String me = (player.has("id") && player.getString("id").equals(manager.getPlayerId()))
+                    ? " · " + languagesManager.getString("tu")
+                    : "";
+            playerLabels[i].setTitle(capitalize(color) + " — " + name + me);
         }
-        playersLabel.setTitle(languagesManager.getString("partida") + " " + manager.getMatchId().substring(0, Math.min(3, manager.getMatchId().length())) + " · " + names);
+        if (statusLabel != null) {
+            statusLabel.setTitle((count >= 2)
+                    ? languagesManager.getString("listo_para_lanzar")
+                    : languagesManager.getString("esperando_jugadores"));
+        }
+    }
+
+    private String capitalize(String s) {
+        if (s == null || s.isEmpty()) return s;
+        return Character.toUpperCase(s.charAt(0)) + s.substring(1);
+    }
+
+    private String shortId(String id) {
+        if (id == null || id.length() <= 3) return id;
+        return id.substring(0, 3);
     }
 
     private Reaction getLaunchReaction() {
