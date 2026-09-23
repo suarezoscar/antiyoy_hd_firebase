@@ -37,7 +37,6 @@ public class ExportManager {
         saveCameraPosition();
         saveCoreModel();
         saveHistory();
-        saveEditor();
         saveCampaign();
         savePauseName();
 
@@ -56,13 +55,6 @@ public class ExportManager {
         if (parameters.campaignLevelIndex == -1) return;
         startSection("campaign");
         builder.append(parameters.campaignLevelIndex);
-    }
-
-
-    private void saveEditor() {
-        if (parameters.editorManager == null) return;
-        startSection("editor");
-        builder.append(parameters.editorManager.encode());
     }
 
 

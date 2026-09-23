@@ -9,7 +9,6 @@ import yio.tro.onliyoy.game.core_model.events.IEventListener;
 import yio.tro.onliyoy.game.general.GameController;
 import yio.tro.onliyoy.game.general.GameMode;
 import yio.tro.onliyoy.game.touch_modes.TouchMode;
-import yio.tro.onliyoy.net.NetRoot;
 import yio.tro.onliyoy.stuff.RepeatYio;
 import yio.tro.onliyoy.stuff.object_pool.ObjectPoolYio;
 
@@ -196,8 +195,7 @@ public class ViewableRelationsManager implements IEventListener {
         if (viewableModel.entitiesManager.isHumanTurnCurrently()) return true;
         GameController gameController = viewableModel.objectsLayer.gameController;
         if (gameController.gameMode == GameMode.editor) return true;
-        NetRoot netRoot = gameController.yioGdxGame.netRoot;
-        if (viewableModel.isNetMatch() && netRoot.isSpectatorCurrently()) return true;
+        if (viewableModel.isNetMatch()) return true;
         return false;
     }
 

@@ -57,47 +57,8 @@ public class LoadingManager {
             case training_create:
                 currentProcess = new ProcessTrainingCreate(this);
                 break;
-            case test_create:
-                currentProcess = new ProcessTest(this);
-                break;
-            case editor_create:
-                currentProcess = new ProcessEditorCreate(this);
-                break;
-            case training_import:
-                currentProcess = new ProcessTrainingImport(this);
-                break;
-            case replay_open:
-                currentProcess = new ProcessReplayOpen(this);
-                break;
-            case editor_import:
-                currentProcess = new ProcessEditorImport(this);
-                break;
-            case net_match:
-                currentProcess = new ProcessEmpty(this);
-                break;
             case firebase_match:
                 currentProcess = new ProcessFirebaseMatch(this);
-                break;
-            case completion_check:
-                currentProcess = new ProcessCompletionCheck(this);
-                break;
-            case verification:
-                currentProcess = new ProcessVerification(this);
-                break;
-            case user_level:
-                currentProcess = new ProcessUserLevel(this);
-                break;
-            case report:
-                currentProcess = new ProcessReport(this);
-                break;
-            case calendar:
-                currentProcess = new ProcessCalendar(this);
-                break;
-            case tutorial:
-                currentProcess = new ProcessTutorial(this);
-                break;
-            case campaign:
-                currentProcess = new ProcessCampaign(this);
                 break;
         }
     }

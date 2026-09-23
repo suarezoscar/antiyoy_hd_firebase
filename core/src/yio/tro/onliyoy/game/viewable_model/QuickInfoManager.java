@@ -2,8 +2,6 @@ package yio.tro.onliyoy.game.viewable_model;
 
 import yio.tro.onliyoy.game.core_model.Hex;
 import yio.tro.onliyoy.game.core_model.core_provinces.Province;
-import yio.tro.onliyoy.net.NetRoot;
-import yio.tro.onliyoy.net.shared.NmbdItem;
 import yio.tro.onliyoy.stuff.RepeatYio;
 import yio.tro.onliyoy.stuff.factor_yio.FactorYio;
 import yio.tro.onliyoy.stuff.object_pool.ObjectPoolYio;
@@ -51,11 +49,6 @@ public class QuickInfoManager {
         if (viewableModel.entitiesManager.getCurrentEntity().isHuman()) return;
         Province province = hex.getProvince();
         if (province == null) return;
-        NetRoot netRoot = viewableModel.objectsLayer.gameController.yioGdxGame.netRoot;
-        if (netRoot.currentMatchData == null) return;
-        NmbdItem item = netRoot.currentMatchData.getItem(netRoot.userData.id);
-        if (item == null) return;
-        if (province.getColor() != item.color) return;
         poolItems.getFreshObject().launch(province);
     }
 

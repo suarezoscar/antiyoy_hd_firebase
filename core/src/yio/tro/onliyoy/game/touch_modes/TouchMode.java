@@ -15,14 +15,8 @@ public abstract class TouchMode {
     protected boolean alive;
 
     public static TmDefault tmDefault;
-    public static TmDebug tmDebug;
-    public static TmReplay tmReplay;
-    public static TmEditor tmEditor;
     public static TmDiplomacy tmDiplomacy;
     public static TmChooseLands tmChooseLands;
-    public static TmVerification tmVerification;
-    public static TmReport tmReport;
-    public static TmSpectator tmSpectator;
     public static TmNone tmNone;
     public static TmEditRelations tmEditRelations;
     // don't forget to initialize touch mode lower
@@ -40,14 +34,8 @@ public abstract class TouchMode {
         touchModes = new ArrayList<>();
 
         tmDefault = new TmDefault(gameController);
-        tmDebug = new TmDebug(gameController);
-        tmReplay = new TmReplay(gameController);
-        tmEditor = new TmEditor(gameController);
         tmDiplomacy = new TmDiplomacy(gameController);
         tmChooseLands = new TmChooseLands(gameController);
-        tmVerification = new TmVerification(gameController);
-        tmReport = new TmReport(gameController);
-        tmSpectator = new TmSpectator(gameController);
         tmNone = new TmNone(gameController);
         tmEditRelations = new TmEditRelations(gameController);
     }

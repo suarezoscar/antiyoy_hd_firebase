@@ -2,7 +2,6 @@ package yio.tro.onliyoy.game.viewable_model;
 
 import yio.tro.onliyoy.SoundManager;
 import yio.tro.onliyoy.SoundType;
-import yio.tro.onliyoy.game.DebugActionsController;
 import yio.tro.onliyoy.game.core_model.Core;
 import yio.tro.onliyoy.game.core_model.CoreModel;
 import yio.tro.onliyoy.game.core_model.DifferenceDetector;

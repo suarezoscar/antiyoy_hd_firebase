@@ -2,7 +2,6 @@ package yio.tro.onliyoy.game.general;
 
 import com.badlogic.gdx.Gdx;
 import yio.tro.onliyoy.YioGdxGame;
-import yio.tro.onliyoy.game.DebugActionsController;
 import yio.tro.onliyoy.game.core_model.EntitiesManager;
 import yio.tro.onliyoy.game.debug.DebugFlags;
 import yio.tro.onliyoy.game.save_system.SavesManager;
@@ -27,7 +26,6 @@ public class GameController {
     public int currentTouchCount;
     long currentTime;
     public PointYio touchDownPos, currentTouch;
-    public DebugActionsController debugActionsController;
     public GameMode gameMode;
     public ObjectsLayer objectsLayer;
     ClickDetector clickDetector;
@@ -52,7 +50,6 @@ public class GameController {
         touchDownPos = new PointYio();
         currentTouch = new PointYio();
         cameraController = new CameraController(this);
-        debugActionsController = new DebugActionsController(this);
         clickDetector = new ClickDetector();
         gameMode = null;
         currentTouchConverted = new PointYio();
@@ -169,8 +166,6 @@ public class GameController {
 
 
     public void debugActions() {
-        debugActionsController.updateReferences();
-        debugActionsController.debugActions();
     }
 
 
@@ -264,36 +259,7 @@ public class GameController {
 
 
     public void resetTouchMode() {
-        if (DebugFlags.debugEnabled) {
-            setTouchMode(TouchMode.tmDebug);
-            return;
-        }
-        switch (gameMode) {
-            default:
-            case training:
-            case custom:
-                setTouchMode(TouchMode.tmDefault);
-                break;
-            case replay:
-                setTouchMode(TouchMode.tmReplay);
-                break;
-            case editor:
-                setTouchMode(TouchMode.tmEditor);
-                break;
-            case verification:
-                setTouchMode(TouchMode.tmVerification);
-                break;
-            case report:
-                setTouchMode(TouchMode.tmReport);
-                break;
-            case net_match:
-                if (yioGdxGame.netRoot.isSpectatorCurrently()) {
-                    setTouchMode(TouchMode.tmSpectator);
-                    break;
-                }
-                setTouchMode(TouchMode.tmDefault);
-                break;
-        }
+        setTouchMode(TouchMode.tmDefault);
     }
 
 

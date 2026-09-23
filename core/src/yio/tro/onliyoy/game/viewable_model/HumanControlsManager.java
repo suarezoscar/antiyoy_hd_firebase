@@ -8,7 +8,6 @@ import yio.tro.onliyoy.game.core_model.events.*;
 import yio.tro.onliyoy.game.general.GameController;
 import yio.tro.onliyoy.game.touch_modes.TouchMode;
 import yio.tro.onliyoy.menu.scenes.Scenes;
-import yio.tro.onliyoy.net.NetRoot;
 
 public class HumanControlsManager {
 
@@ -156,12 +155,6 @@ public class HumanControlsManager {
     private void onHexClickedWhileNobodyIsSelected(Hex hex) {
         if (!hex.hasUnit()) return;
         if (!viewableModel.readinessManager.isReady(hex)) return;
-        if (viewableModel.isNetMatch()) {
-            GameController gameController = viewableModel.objectsLayer.gameController;
-            NetRoot netRoot = gameController.yioGdxGame.netRoot;
-            HColor userColor = netRoot.currentMatchData.getColor(netRoot.userData.id);
-            if (hex.color != userColor) return;
-        }
         ViewableUnit unit = getUnit(hex);
         if (unit == null) return; // yes, it's possible
         unit.select();
