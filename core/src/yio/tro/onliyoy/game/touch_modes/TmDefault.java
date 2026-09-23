@@ -91,8 +91,7 @@ public class TmDefault extends TouchMode {
 
 
     private boolean isTouchAllowedByScripts() {
-        ForefingerElement forefinger = Scenes.forefinger.forefinger;
-        return forefinger != null && forefinger.getAlpha() > 0.95;
+        return true;
     }
 
 
