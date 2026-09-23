@@ -139,9 +139,10 @@ public class YioGdxGame extends ApplicationAdapter implements InputProcessor {
         fpsRenderer = new FpsRenderer(this);
         rejoinWorker = new RejoinWorker(this);
         menuControllerYio.createInitialScene();
-        // hasta que la capa Firebase sustituya a la red, arrancamos offline
-        // (evita el Socket bloqueante a un servidor que no existe -> ANR)
+        // temporal (hasta fase 2): evita el Socket bloqueante al servidor de yiotro
         netRoot.enableOfflineMode();
+        // Fase 1: el juego arranca directo en la pantalla Firebase
+        Scenes.firebaseHome.create();
         SkinManager.getInstance().onAppStarted();
         humanImitationWorker = new HumanImitationWorker(this);
 
