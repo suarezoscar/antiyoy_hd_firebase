@@ -75,6 +75,7 @@ public class SceneNetOverlay extends ModalSceneYio {
         return new ConditionYio() {
             @Override
             public boolean get() {
+                if (getGameController().yioGdxGame.firebaseGameManager.getAdapter() != null) return false; // firebase: sin overlay de red (bloquea el tablero)
                 return getViewableModel().isNetMatch();
             }
         };
