@@ -80,7 +80,7 @@ public class SceneFirebaseLobby extends SceneYio implements FirebaseGameManager.
         FirebaseGameManager manager = getManager();
         JsonValue players = manager.getPlayers();
         if (players == null || players.size == 0) {
-            playersLabel.setTitle("Esperando jugadores...");
+            playersLabel.setTitle(languagesManager.getString("esperando_jugadores"));
             return;
         }
         StringBuilder names = new StringBuilder();
@@ -91,7 +91,7 @@ public class SceneFirebaseLobby extends SceneYio implements FirebaseGameManager.
             if (names.length() > 0) names.append(", ");
             names.append(name).append("(").append(color).append(")");
         }
-        playersLabel.setTitle("Partida " + manager.getMatchId().substring(0, Math.min(3, manager.getMatchId().length())) + " · " + names);
+        playersLabel.setTitle(languagesManager.getString("partida") + " " + manager.getMatchId().substring(0, Math.min(3, manager.getMatchId().length())) + " · " + names);
     }
 
     private Reaction getLaunchReaction() {

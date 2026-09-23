@@ -98,8 +98,8 @@ public class SceneFirebaseHome extends SceneYio {
 
     private void updateInfoLabel() {
         FirebaseGameManager manager = getManager();
-        String base = manager.getConfig().isConfigured() ? manager.getConfig().getDatabaseUrl() : "(sin configurar)";
-        infoLabel.setTitle("Base OK · Soy " + manager.getPlayerName());
+        String key = manager.getConfig().isConfigured() ? "base_configurada" : "base_sin_configurar";
+        infoLabel.setTitle(languagesManager.getString(key) + manager.getPlayerName());
     }
 
     private Reaction getConfigureReaction() {

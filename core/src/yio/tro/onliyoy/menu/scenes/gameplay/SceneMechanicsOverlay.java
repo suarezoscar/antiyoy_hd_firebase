@@ -99,7 +99,9 @@ public class SceneMechanicsOverlay extends ModalSceneYio {
         long remaining = deadline - now;
         if (remaining < 0) remaining = 0;
         long seconds = remaining / 1000;
-        String who = manager.getMyColor().equals(getCurrentColorName()) ? "Tu turno" : "Turno rival";
+        String who = manager.getMyColor().equals(getCurrentColorName())
+                ? languagesManager.getString("tu_turno")
+                : languagesManager.getString("turno_rival");
         turnTimerLabel.setTitle(who + " · " + (seconds / 60) + ":" + String.format("%02d", seconds % 60));
     }
 

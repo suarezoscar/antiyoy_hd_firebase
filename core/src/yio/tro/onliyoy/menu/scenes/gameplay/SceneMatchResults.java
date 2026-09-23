@@ -72,7 +72,7 @@ public class SceneMatchResults extends SceneYio {
         if (titleLabel == null || matchResults == null) return;
         HColor winnerColor = matchResults.winnerColor;
         String name = winnerColor == null ? "-" : winnerColor.toString();
-        titleLabel.setTitle("Ganador: " + name);
+        titleLabel.setTitle(languagesManager.getString("ganador") + ": " + name);
     }
 
 
