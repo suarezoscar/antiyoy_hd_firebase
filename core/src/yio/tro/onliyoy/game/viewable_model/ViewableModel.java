@@ -143,8 +143,6 @@ public class ViewableModel extends CoreModel {
 
 
     private void checkToNotifyTmDiplomacy(AbstractEvent event) {
-        if (objectsLayer.gameController.touchMode != TouchMode.tmDiplomacy) return;
-        TouchMode.tmDiplomacy.onEventApplied(event);
     }
 
 
@@ -275,7 +273,6 @@ public class ViewableModel extends CoreModel {
 
 
     private boolean isFastModeEnabled() {
-        if (getGameMode() == GameMode.replay && objectsLayer.replayManager.fast) return true;
         if (objectsLayer.viewableModel.entitiesManager.isInAiOnlyMode()) return true;
         return false;
     }

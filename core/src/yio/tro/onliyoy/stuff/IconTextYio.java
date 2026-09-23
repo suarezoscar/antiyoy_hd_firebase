@@ -3,7 +3,6 @@ package yio.tro.onliyoy.stuff;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import yio.tro.onliyoy.Yio;
 import yio.tro.onliyoy.YioGdxGame;
-import yio.tro.onliyoy.net.shared.AvatarType;
 import yio.tro.onliyoy.stuff.factor_yio.FactorYio;
 import yio.tro.onliyoy.stuff.factor_yio.MovementType;
 import yio.tro.onliyoy.stuff.object_pool.ReusableYio;
@@ -166,38 +165,6 @@ public class IconTextYio implements ReusableYio {
 
     public void setString(String string) {
         renderableTextYio.setString(string);
-    }
-
-
-    public void setupByAvatarType(AvatarType avatarType) {
-        if (avatarType == null) return;
-        setIconEnabled(avatarType != AvatarType.empty);
-        setRotating(false);
-        setBlinking(false);
-        switch (avatarType) {
-            default:
-                break;
-            case gear:
-                enableRotation(0.01);
-                break;
-            case hypno:
-                enableRotation(0.05);
-                break;
-            case heli:
-                enableRotation(0.025);
-                break;
-            case eyes:
-            case heart:
-            case finger_up:
-                setBlinking(true);
-                break;
-            case dice:
-                enableDicing(6);
-                break;
-            case face:
-                enableDicing(4);
-                break;
-        }
     }
 
 

@@ -15,10 +15,7 @@ public abstract class TouchMode {
     protected boolean alive;
 
     public static TmDefault tmDefault;
-    public static TmDiplomacy tmDiplomacy;
-    public static TmChooseLands tmChooseLands;
     public static TmNone tmNone;
-    public static TmEditRelations tmEditRelations;
     // don't forget to initialize touch mode lower
 
 
@@ -34,10 +31,7 @@ public abstract class TouchMode {
         touchModes = new ArrayList<>();
 
         tmDefault = new TmDefault(gameController);
-        tmDiplomacy = new TmDiplomacy(gameController);
-        tmChooseLands = new TmChooseLands(gameController);
         tmNone = new TmNone(gameController);
-        tmEditRelations = new TmEditRelations(gameController);
     }
 
 

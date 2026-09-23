@@ -50,7 +50,6 @@ public class MenuRenders {
     public static RenderRveMoneyItem renderRveMoneyItem = new RenderRveMoneyItem();
     public static RenderRveLandsItem renderRveLandsItem = new RenderRveLandsItem();
     public static RenderRveRelationItem renderRveRelationItem = new RenderRveRelationItem();
-    public static RenderLetterListItem renderLetterListItem = new RenderLetterListItem();
     public static RenderRveNotificationItem renderRveNotificationItem = new RenderRveNotificationItem();
     public static RenderPlaceholderListItem renderPlaceholderListItem = new RenderPlaceholderListItem();
     public static RenderUiColors renderUiColors = new RenderUiColors();

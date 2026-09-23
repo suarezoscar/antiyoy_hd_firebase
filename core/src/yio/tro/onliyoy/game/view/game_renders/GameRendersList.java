@@ -23,15 +23,10 @@ public class GameRendersList {
     public RenderBackground renderBackground;
     public RenderStaticPiecesInTransition renderStaticPiecesInTransition;
     public RenderHexesInTransition renderHexesInTransition;
-    public RenderEditorStuff renderEditorStuff;
-    public RenderTmDiplomacy renderTmDiplomacy;
     public RenderViewableRelations renderViewableRelations;
-    public RenderTmChooseLands renderTmChooseLands;
     public RenderPigeons renderPigeons;
     public RenderExclamations renderExclamations;
-    public RenderTmVerification renderTmVerification;
     public RenderQuickInfo renderQuickInfo;
-    public RenderTmEditRelations renderTmEditRelations;
     public RenderFogOfWar renderFogOfWar;
     // initialize them lower
 
@@ -77,15 +72,10 @@ public class GameRendersList {
         renderBackground = new RenderBackground();
         renderStaticPiecesInTransition = new RenderStaticPiecesInTransition();
         renderHexesInTransition = new RenderHexesInTransition();
-        renderEditorStuff = new RenderEditorStuff();
-        renderTmDiplomacy = new RenderTmDiplomacy();
         renderViewableRelations = new RenderViewableRelations();
-        renderTmChooseLands = new RenderTmChooseLands();
         renderPigeons = new RenderPigeons();
         renderExclamations = new RenderExclamations();
-        renderTmVerification = new RenderTmVerification();
         renderQuickInfo = new RenderQuickInfo();
-        renderTmEditRelations = new RenderTmEditRelations();
         renderFogOfWar = new RenderFogOfWar();
     }
 }

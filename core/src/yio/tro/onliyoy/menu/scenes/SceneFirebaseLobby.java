@@ -109,7 +109,7 @@ public class SceneFirebaseLobby extends SceneYio implements FirebaseGameManager.
             protected void apply() {
                 getManager().stop();
                 yioGdxGame.setGamePaused(true);
-                Scenes.chooseGameMode.create();
+                Scenes.firebaseHome.create();
             }
         };
     }

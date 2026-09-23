@@ -15,7 +15,6 @@ import yio.tro.onliyoy.menu.elements.gameplay.province_ui.MechanicsHookElement;
 import yio.tro.onliyoy.menu.reactions.Reaction;
 import yio.tro.onliyoy.menu.scenes.ModalSceneYio;
 import yio.tro.onliyoy.menu.scenes.Scenes;
-import yio.tro.onliyoy.net.shared.NmType;
 import yio.tro.onliyoy.stuff.GraphicsYio;
 
 public class SceneMechanicsOverlay extends ModalSceneYio {

@@ -6,7 +6,6 @@ import yio.tro.onliyoy.menu.LanguagesManager;
 import yio.tro.onliyoy.menu.MenuControllerYio;
 import yio.tro.onliyoy.menu.menu_renders.MenuRenders;
 import yio.tro.onliyoy.menu.menu_renders.RenderInterfaceElement;
-import yio.tro.onliyoy.net.shared.NetValues;
 import yio.tro.onliyoy.stuff.GraphicsYio;
 import yio.tro.onliyoy.stuff.RectangleYio;
 import yio.tro.onliyoy.stuff.VisualTextContainer;
@@ -65,7 +64,6 @@ public class ExceptionViewElement extends InterfaceElement<ExceptionViewElement>
 
     private ArrayList<String> generateStringsList(Exception exception) {
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("[" + NetValues.PROTOCOL + "]");
         strings.add(" ");
         String caughtExceptionSource = LanguagesManager.getInstance().getString("caught_exception");
         strings.addAll(Yio.createArrayListFromString(caughtExceptionSource));

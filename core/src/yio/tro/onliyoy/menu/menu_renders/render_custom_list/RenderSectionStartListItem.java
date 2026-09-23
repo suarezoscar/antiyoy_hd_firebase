@@ -1,7 +1,6 @@
 package yio.tro.onliyoy.menu.menu_renders.render_custom_list;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import yio.tro.onliyoy.game.campaign.CampaignManager;
 import yio.tro.onliyoy.game.core_model.HColor;
 import yio.tro.onliyoy.menu.elements.customizable_list.AbstractCustomListItem;
 import yio.tro.onliyoy.menu.elements.customizable_list.SectionStartListItem;

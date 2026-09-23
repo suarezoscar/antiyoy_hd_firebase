@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import yio.tro.onliyoy.YioGdxGame;
 import yio.tro.onliyoy.game.core_model.EntitiesManager;
 import yio.tro.onliyoy.game.debug.DebugFlags;
-import yio.tro.onliyoy.game.save_system.SavesManager;
 import yio.tro.onliyoy.game.touch_modes.TouchMode;
-import yio.tro.onliyoy.game.tutorial.ScriptManager;
-import yio.tro.onliyoy.game.tutorial.TutorialManager;
 import yio.tro.onliyoy.game.viewable_model.EventFlowAnalyzer;
 import yio.tro.onliyoy.menu.ClickDetector;
 import yio.tro.onliyoy.menu.MenuSwitcher;
@@ -35,10 +32,8 @@ public class GameController {
     public TouchMode touchMode;
     public SpeedManager speedManager;
     public ArrayList<TouchMode> dyingTms;
-    public SavesManager savesManager;
     public SizeManager sizeManager;
     RepeatYio<GameController> repeatFixUi;
-    public TutorialManager tutorialManager;
     public ScriptManager scriptManager;
 
 
@@ -55,9 +50,7 @@ public class GameController {
         currentTouchConverted = new PointYio();
         speedManager = new SpeedManager(this);
         dyingTms = new ArrayList<>();
-        savesManager = new SavesManager(this);
         sizeManager = new SizeManager(GraphicsYio.width);
-        tutorialManager = new TutorialManager(this);
         scriptManager = new ScriptManager(this);
 
         TouchMode.createModes(this);
@@ -79,7 +72,6 @@ public class GameController {
     public void move() {
         currentTime = System.currentTimeMillis();
 
-        tutorialManager.move();
         cameraController.move();
         moveTouchMode();
         objectsLayer.move();

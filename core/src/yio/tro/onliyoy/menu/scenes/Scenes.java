@@ -22,18 +22,6 @@ public class Scenes {
     public static SceneMatchResults matchResults;
     public static SceneConfirmEndTurn confirmEndTurn;
 
-    public static SceneChooseEntity chooseEntity;
-    public static SceneComposeLetter composeLetter;
-    public static SceneReadLetter readLetter;
-    public static SceneInbox inbox;
-    public static SceneMessageDialog messageDialog;
-    public static SceneSetupMoneyCondition setupMoneyCondition;
-    public static SceneSetupRelationCondition setupRelationCondition;
-    public static SceneSetupRveNotification setupRveNotification;
-    public static SceneSetupSmileysCondition setupSmileysCondition;
-    public static SceneSingleEntityConfigure singleEntityConfigure;
-    public static SceneTmChooseLandsOverlay tmChooseLandsOverlay;
-
     public static SceneDefaultPauseMenu defaultPauseMenu;
     public static SceneSettings settings;
     public static SceneLanguages languages;
@@ -42,7 +30,6 @@ public class Scenes {
     public static SceneToast toast;
     public static SceneExceptionReport exceptionReport;
     public static SceneKeyboard keyboard;
-    public static SceneLoadingTraining loadingTraining;
     public static SceneConfirmRestart confirmRestart;
 
     public static SceneForefinger forefinger;
@@ -62,18 +49,6 @@ public class Scenes {
         matchResults = new SceneMatchResults();
         confirmEndTurn = new SceneConfirmEndTurn();
 
-        chooseEntity = new SceneChooseEntity();
-        composeLetter = new SceneComposeLetter();
-        readLetter = new SceneReadLetter();
-        inbox = new SceneInbox();
-        messageDialog = new SceneMessageDialog();
-        setupMoneyCondition = new SceneSetupMoneyCondition();
-        setupRelationCondition = new SceneSetupRelationCondition();
-        setupRveNotification = new SceneSetupRveNotification();
-        setupSmileysCondition = new SceneSetupSmileysCondition();
-        singleEntityConfigure = new SceneSingleEntityConfigure();
-        tmChooseLandsOverlay = new SceneTmChooseLandsOverlay();
-
         defaultPauseMenu = new SceneDefaultPauseMenu();
         settings = new SceneSettings();
         languages = new SceneLanguages();
@@ -82,7 +57,6 @@ public class Scenes {
         toast = new SceneToast();
         exceptionReport = new SceneExceptionReport();
         keyboard = new SceneKeyboard();
-        loadingTraining = new SceneLoadingTraining();
         confirmRestart = new SceneConfirmRestart();
 
         forefinger = new SceneForefinger();

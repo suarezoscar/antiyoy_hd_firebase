@@ -10,8 +10,6 @@ import yio.tro.onliyoy.menu.elements.slider.SliderElement;
 import yio.tro.onliyoy.menu.reactions.Reaction;
 import yio.tro.onliyoy.menu.scenes.SceneYio;
 import yio.tro.onliyoy.menu.scenes.Scenes;
-import yio.tro.onliyoy.net.shared.NetOptionsData;
-import yio.tro.onliyoy.net.shared.NmType;
 import yio.tro.onliyoy.stuff.GraphicsYio;
 
 public class SceneSettings extends SceneYio {

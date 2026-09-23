@@ -5,7 +5,6 @@ import com.badlogic.gdx.Preferences;
 import yio.tro.onliyoy.YioGdxGame;
 import yio.tro.onliyoy.game.core_model.Hex;
 import yio.tro.onliyoy.game.core_model.PieceType;
-import yio.tro.onliyoy.net.shared.SkinType;
 import yio.tro.onliyoy.stuff.AtlasLoader;
 import yio.tro.onliyoy.stuff.Storage3xTexture;
 

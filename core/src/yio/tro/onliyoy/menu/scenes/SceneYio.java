@@ -15,7 +15,6 @@ import yio.tro.onliyoy.menu.UiFactory;
 import yio.tro.onliyoy.menu.elements.*;
 import yio.tro.onliyoy.menu.elements.button.ButtonYio;
 import yio.tro.onliyoy.menu.reactions.Reaction;
-import yio.tro.onliyoy.net.NetRoot;
 import yio.tro.onliyoy.stuff.GraphicsYio;
 import yio.tro.onliyoy.stuff.Storage3xTexture;
 
@@ -34,7 +33,6 @@ public abstract class SceneYio {
     private ArrayList<InterfaceElement> localElementsList;
     protected InterfaceElement previousElement, currentAddedElement;
     protected CircleButtonYio backButton;
-    protected NetRoot netRoot;
 
 
     public SceneYio() {
@@ -183,7 +181,6 @@ public abstract class SceneYio {
         yioGdxGame = menuControllerYio.yioGdxGame;
         uiFactory = new UiFactory(this);
         languagesManager = menuControllerYio.languagesManager;
-        netRoot = yioGdxGame.netRoot;;
     }
 
 

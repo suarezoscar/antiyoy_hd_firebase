@@ -3,7 +3,6 @@ package yio.tro.onliyoy.menu.elements.forefinger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import yio.tro.onliyoy.game.core_model.Hex;
 import yio.tro.onliyoy.game.general.CameraController;
-import yio.tro.onliyoy.game.tutorial.ScriptManager;
 import yio.tro.onliyoy.menu.MenuControllerYio;
 import yio.tro.onliyoy.menu.elements.button.ButtonYio;
 import yio.tro.onliyoy.menu.elements.InterfaceElement;

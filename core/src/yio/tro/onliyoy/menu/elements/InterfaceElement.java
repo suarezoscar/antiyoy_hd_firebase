@@ -10,7 +10,6 @@ import yio.tro.onliyoy.menu.MenuParams;
 import yio.tro.onliyoy.menu.elements.button.ButtonYio;
 import yio.tro.onliyoy.menu.menu_renders.RenderInterfaceElement;
 import yio.tro.onliyoy.menu.scenes.SceneYio;
-import yio.tro.onliyoy.net.NetRoot;
 import yio.tro.onliyoy.stuff.GraphicsYio;
 import yio.tro.onliyoy.stuff.PointYio;
 import yio.tro.onliyoy.stuff.RectangleYio;
@@ -916,11 +915,6 @@ public abstract class InterfaceElement<T extends InterfaceElement<T>> {
         ObjectsLayer objectsLayer = getObjectsLayer();
         if (objectsLayer == null) return null;
         return objectsLayer.viewableModel;
-    }
-
-
-    public NetRoot getNetRoot() {
-        return menuControllerYio.yioGdxGame.netRoot;
     }
 
 

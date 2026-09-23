@@ -1,6 +1,5 @@
 package yio.tro.onliyoy.menu;
 
-import yio.tro.onliyoy.PlatformType;
 import yio.tro.onliyoy.YioGdxGame;
 import yio.tro.onliyoy.game.general.GameController;
 import yio.tro.onliyoy.game.general.ObjectsLayer;
@@ -38,91 +37,15 @@ public class MenuSwitcher {
     }
 
 
-    public void createChooseGameModeMenu() {
-        if (yioGdxGame.netRoot.offlineMode) {
-            Scenes.offlineMenu.create();
-            return;
-        }
-        Scenes.chooseGameMode.create();
-    }
-
-
     public void createPauseMenu() {
-        switch (getGameController().gameMode) {
-            default:
-                Scenes.defaultPauseMenu.create();
-                break;
-            case editor:
-                Scenes.editorPauseMenu.create();
-                break;
-            case replay:
-                Scenes.replayPauseMenu.create();
-                break;
-            case net_match:
-                Scenes.netPauseMenu.create();
-                break;
-            case completion_check:
-                Scenes.completionCheckPauseMenu.create();
-                break;
-            case verification:
-                Scenes.verificationPauseMenu.create();
-                break;
-            case user_level:
-                Scenes.userLevelPauseMenu.create();
-                break;
-            case report:
-                Scenes.reportPauseMenu.create();
-                break;
-            case calendar:
-                Scenes.calendarPauseMenu.create();
-                break;
-            case tutorial:
-                Scenes.tutorialPauseMenu.create();
-                break;
-            case campaign:
-                Scenes.campaignPauseMenu.create();
-                break;
-        }
+        Scenes.defaultPauseMenu.create();
     }
 
 
     public void createMenuOverlay() {
         Scenes.gameOverlay.create();
-        Scenes.netOverlay.create();
-        switch (getGameController().gameMode) {
-            default:
-                getGameController().syncMechanicsOverlayWithCurrentTurn();
-                Scenes.phraseButton.create();
-                getViewableModel().provinceSelectionManager.syncUI();
-                checkForAiOnlyOverlay();
-                checkForSpectatorOverlay();
-                break;
-            case replay:
-                Scenes.replayOverlay.create();
-                break;
-            case editor:
-                Scenes.editorOverlay.create();
-                break;
-            case verification:
-                Scenes.verificationOverlay.create();
-                break;
-            case report:
-                Scenes.reportOverlay.create();
-                break;
-        }
-    }
-
-
-    private void checkForAiOnlyOverlay() {
-        if (!getViewableModel().entitiesManager.isInAiOnlyMode()) return;
-        Scenes.aiOnlyOverlay.create();
-    }
-
-
-    private void checkForSpectatorOverlay() {
-        if (!getViewableModel().isNetMatch()) return;
-        if (!yioGdxGame.netRoot.isSpectatorCurrently()) return;
-        Scenes.spectatorOverlay.create();
+        getGameController().syncMechanicsOverlayWithCurrentTurn();
+        getViewableModel().provinceSelectionManager.syncUI();
     }
 
 

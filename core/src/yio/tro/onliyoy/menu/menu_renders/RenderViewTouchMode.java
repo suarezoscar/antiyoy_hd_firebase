@@ -14,14 +14,6 @@ public class RenderViewTouchMode extends RenderInterfaceElement{
     private BitmapFont font;
     private TextureRegion whitePixel;
     private RenderableTextYio title;
-    RenderDiplomaticItems renderDiplomaticItems;
-    RenderEditRelationsItems renderEditRelationsItems;
-
-
-    public RenderViewTouchMode() {
-        renderDiplomaticItems = new RenderDiplomaticItems();
-        renderEditRelationsItems = new RenderEditRelationsItems();
-    }
 
 
     @Override
@@ -46,9 +38,6 @@ public class RenderViewTouchMode extends RenderInterfaceElement{
         GraphicsYio.setFontAlpha(font, viewTouchModeElement.getTextAlpha() * alpha);
         GraphicsYio.renderText(batch, title);
         GraphicsYio.setFontAlpha(font, 1);
-
-        renderDiplomaticItems.render(batch, menuViewYio.yioGdxGame.gameController);
-        renderEditRelationsItems.render(batch, menuViewYio.yioGdxGame.gameController);
     }
 
 }
