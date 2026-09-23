@@ -108,7 +108,7 @@ public class ObjectsLayer implements TouchableYio, AcceleratableYio {
 
 
     private void checkToForceEndTurn() {
-        FirebaseGameManager firebase = yioGdxGame.firebaseGameManager;
+        FirebaseGameManager firebase = gameController.yioGdxGame.firebaseGameManager;
         if (firebase != null && firebase.getAdapter() != null) {
             long deadline = firebase.getTurnEndTimeMillis();
             if (deadline == 0) return;
